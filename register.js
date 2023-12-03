@@ -1,5 +1,6 @@
 const express = require("express");
 var mysql = require('mysql');
+const bcrypt = require('bcrypt')
 
 const app = express()
 const router = express.Router();
@@ -16,12 +17,12 @@ router.post("/register", (req, res) => {
         database: "userinfodb"
     });
     
-    con.connect(function (err) {
+    con.connect( async function (err) {
         const sql = "insert into userinfotb set ?"
         const value = {
             id: Date.now(),
-            username: btoa(userInfo.userName),
-            password: btoa(userInfo.password)
+            username: (userInfo.userName),
+            password: await bcrypt.hash(userInfo.password,10)
         }
         
         if (err) {
@@ -39,5 +40,4 @@ router.post("/register", (req, res) => {
             }
         })
     });
-
 });
