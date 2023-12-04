@@ -1,35 +1,53 @@
-const express=require('express');
+const express = require("express");
+const jwt=require('jsonwebtoken');
+const bcrypt = require("bcrypt");
 require("dotenv").config();
-const sql=require('mysql');
-const router=express.Router();
-const db=sql.createConnection({
-    host:"localhost",
-    user:"root",
-    password:"2319",
-    database:"userDatabase",
-});
-db.connect((error)=>{
-    if(error) return error
-    console.log('Database active');
-});
-const getUsersSql="SELECT * FROM users"
-router.post('/signIn', (req,res)=>{
+const sql = require("mysql");
+const router = express.Router();
 
-    db.query(getUsersSql,(error,result)=>{
-        if(error) return console.log(error);
-        console.log(result);
-        result.forEach((user)=>{
-            responseObject.push(user);
-        })
-    })
-    const responseObject=[];
-    
+// connect do database
 
-    const headrs=btoa(req.header);
-    const payload=btoa(req.body);
-    console.log(req.body);
-    const signature=btoa(headrs+"."+payload+btoa(process.env.SECRET_KEY));
-    const token=headrs+"."+payload+"."+signature;
-    res.status(200).send(token);
+const db = sql.createConnection({
+	host: "localhost",
+	user: "root",
+	password: "2319",
+	database: "userDatabase",
 });
-module.exports=router;
+db.connect((error) => {
+	if (error) return error;
+	console.log("Database active");
+});
+
+//signin request route
+
+
+router.post("/signIn", async (req, res) => {
+	
+
+	//search for entered email
+	const email = req.body.email;
+	const password = req.body.password;
+	const checkSql = `SELECT * FROM users WHERE email= ?`;
+
+	db.query(checkSql, email, (error, result) => {
+		if (error) return res.status(404).send("User not found");
+
+		const dbPassword = result[0].password;
+
+		//comare encrypted password with entered password
+		bcrypt.compare(password, dbPassword, (error, result) => {
+			if (error) res.status(500).send("Internal server error");
+
+			if (result) {
+				const payload=req.body;
+				const secretKey="azsxdcfvgbhnjm";
+				const token=jwt.sign(payload,secretKey);
+				res.status(200).send(token);
+			} else {
+				res.send("Incorrect credentials");
+			}
+		});
+	});
+});
+
+module.exports = router;
