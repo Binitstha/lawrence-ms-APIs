@@ -60,7 +60,6 @@ router.post('/forgetPassword', async (req, res) => {
             }
         });
 
-
     } catch (error) {
         console.log(error);
         return res.send("user not found")
