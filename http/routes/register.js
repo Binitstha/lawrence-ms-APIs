@@ -1,4 +1,5 @@
 const  express = require('express')
+const sqlize= require('sequelize');
 const app = express();
 const router= express.Router();
 const port = 3000;
