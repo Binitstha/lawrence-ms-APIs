@@ -1,13 +1,17 @@
-const express = require("express");
-const jwt=require('jsonwebtoken');
-const bcrypt = require("bcrypt");
-require("dotenv").config();
-const sql = require("mysql2");
+import express from 'express';
+// const jwt=require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
+// const bcrypt = require("bcrypt");
+import bcrypt from 'bcrypt';
+// require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
+// const sql = require("mysql2");
+import sql from 'mysql2';
 const router = express.Router();
-// const sequelize=require('sequelize');
 
-const user=require('../../models/user.js');
-
+// const user=require('../../models/user.js');
+import user from '../../models/user.js';
 
 
 router.post("/signIn", async (req, res) => {
@@ -23,7 +27,7 @@ router.post("/signIn", async (req, res) => {
 			email:email,
 		}
 	});
-	// console.log(currentUser[0].password);
+	
 	bcrypt.compare(password,currentUser[0].password,(error,result)=>{
 		if(error) return console.log("server error");
 		
@@ -45,4 +49,4 @@ router.post("/signIn", async (req, res) => {
 });
 
 
-module.exports = router;
+export default router;

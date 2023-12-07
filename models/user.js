@@ -1,4 +1,5 @@
-const {Sequelize,DataTypes}= require('sequelize');
+// const {Sequelize,DataTypes}= require('sequelize');
+import {Sequelize,DataTypes} from 'sequelize';
 const sqlize=new Sequelize('userDatabase','root','2319',
 	{
 		dialect : 'mysql',
@@ -41,4 +42,4 @@ const user=sqlize.define('user',{
 	
 });
 
-module.exports=user;
+export default user;
