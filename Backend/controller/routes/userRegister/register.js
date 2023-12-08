@@ -1,10 +1,10 @@
-const express = require("express");
-var mysql = require('mysql');
-const bcrypt = require('bcrypt')
+import { Router } from "express";
+import mysql from 'mysql';
+import { hash } from 'bcrypt';
 
-const router = express.Router();
+const router = Router();
 const port = 3000;
-const User = require('./user.js')
+import User from './user.js';
 
 router.post("/register", async (req, res) => {
     try {
@@ -13,7 +13,7 @@ router.post("/register", async (req, res) => {
         await User.create({
             id: Date.now(),
             email: userInfo.email,
-            password: await bcrypt.hash(userInfo.password, 10),
+            password: await hash(userInfo.password, 10),
             token: userInfo.token,
         });
         console.log("hello1")
@@ -25,4 +25,4 @@ router.post("/register", async (req, res) => {
     res.send("hello");
 });
 
-module.exports = router;
+export default router;

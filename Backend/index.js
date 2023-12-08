@@ -1,15 +1,14 @@
-const express = require("express");
+import express from "express";
 const app = express();
 const port = 3000;
-
-const registerRoute = require("./controller/routes/userRegister/register.js");
-const forgetRoute = require("./controller/routes/forgetPassword/forgetPassword.js");
-const resetRoute = require("./controller/routes/forgetPassword/codeChecker.js");
-
 app.use(express.json());
+
+import registerRoute from "./controller/routes/userRegister/register.js";
+import forgetRoute from "./controller/routes/forgetPassword/forgetPassword.js";
+import resetRoute from "./controller/routes/forgetPassword/codeChecker.js";
+
 app.use("/", registerRoute);
 app.use("/", forgetRoute);
-app.use("/", resetRoute);
+app.use("/forgetPassword", resetRoute);
 
-const sequelize = require("./config/config");
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

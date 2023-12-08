@@ -1,18 +1,22 @@
-const express = require('express');
-const User = require('../userRegister/user.js');
-const bcrypt = require('bcrypt');
+import { Router } from 'express';
+import findOne from '../userRegister/user.js';
+import update from '../userRegister/user.js';
+import { hash } from 'bcrypt';
 
-const resetRouter = express.Router();
+import { codeGenerator } from './forgetPassword.js';
+import { getEmail } from './forgetPassword.js';
+import User from '../userRegister/user.js';
+
+console.log(codeGenerator())
+const resetRouter = Router();
 let codeMatch;
 
-const reqEmail = 'Binit@gmail.com';
-const generatedCode = 12345
-
 resetRouter.get('/resetPassword', async (req, res) => {
+    let reqEmail = await getEmail(req)
+    console.log("ahahahahhah", reqEmail)
 
     const userInfo = req.body;
-
-    if (generatedCode === userInfo.code) {
+    if (codeGenerator() === await userInfo.code) {
         res.send('Code matched');
         codeMatch = true;
     } else {
@@ -23,20 +27,19 @@ resetRouter.get('/resetPassword', async (req, res) => {
     try {
         const emaildata = await User.findOne({
             where: {
-                email: 'Binit@gmail.com',
+                email: reqEmail,
             },
         });
         console.log(emaildata.email);
     } catch (err) {
         console.error(err);
-        next(err);
     }
 
     try {
         if (codeMatch) {
             await User.update(
                 {
-                    password: await bcrypt.hash(userInfo.password, 10),
+                    password: await hash(userInfo.password, 10),
                 },
                 {
                     where: {
@@ -51,4 +54,4 @@ resetRouter.get('/resetPassword', async (req, res) => {
     }
 });
 
-module.exports = resetRouter;
+export default resetRouter;

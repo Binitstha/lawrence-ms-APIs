@@ -1,14 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const User = require("../userRegister/user.js");
-const nodemailer = require("nodemailer");
+import { Router } from "express";
+const router = Router();
+import { createTransport } from "nodemailer";
+import User from "../userRegister/user.js";
 
 let genratedCode;
-let reqEmail;
+
+export const getEmail = async (req) => {
+    return req.body.email;
+};
 
 router.post("/forgetPassword", async (req, res) => {
-    const userInfo = req.body;
-    reqEmail = userInfo.email;
+    let reqEmail = await getEmail(req);
 
     try {
         const databaseEmail = await User.findAll({
@@ -22,30 +24,38 @@ router.post("/forgetPassword", async (req, res) => {
             res.send("email found");
         }
 
-        const codeArray = []
-        for (let i = 0; i < 5; i++) {
-            const radNum = Math.floor(Math.random() * 10)
-            codeArray.push(radNum)
-        }
-        try {
-            if (codeArray.length == 5) {
-                genratedCode = codeArray.reduce((acc, currentNum) => acc * 10 + currentNum, 0)
-            }
-        } catch (error) {
-            throw error
-        }
-
+        await codeGenerator();
         await emailSend();
         console.log("Email sent");
-
     } catch (error) {
         console.log(error);
         return res.send("user not found");
     }
+    console.log("forget", reqEmail);
 });
 
+export function codeGenerator() {
+    const codeArray = [];
+    for (let i = 0; i < 5; i++) {
+        const radNum = Math.floor(Math.random() * 10);
+        codeArray.push(radNum);
+    }
+    try {
+        if (codeArray.length == 5) {
+            genratedCode = codeArray.reduce(
+                (acc, currentNum) => acc * 10 + currentNum,
+                0
+            );
+        }
+    } catch (error) {
+        throw error;
+    }
+    console.log(genratedCode);
+    return genratedCode;
+}
+
 async function emailSend() {
-    const transporter = nodemailer.createTransport({
+    const transporter = createTransport({
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
         auth: {
@@ -69,7 +79,6 @@ async function emailSend() {
             console.log("Email sent: " + info.response);
         }
     });
-    console.log(reqEmail)
 }
 
-module.exports = router;
+export default router;
