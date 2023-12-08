@@ -1,16 +1,16 @@
 import express from 'express';
+import cors from 'cors';
 const app=express();
 app.use(express.json());
-// require("dotenv").config();
 import dotenv from 'dotenv';
 dotenv.config();
+app.use(cors());
 import register from './http/routes/register.js';
 import signIn from './http/routes/signin.js';
-import attandence from './http/routes/attandence.js';
+import attendance from './http/routes/attendance.js';
 app.use("/authentication", signIn);
 app.use("/authentication", register);
-app.use("/",attandence);
-
+app.use("/",attendance);
 app.post("/getData", (req, res) => {
 	res.send(req.body);
 });

@@ -1,18 +1,10 @@
 import express from 'express';
-// const jwt=require('jsonwebtoken');
 import jwt from 'jsonwebtoken';
-// const bcrypt = require("bcrypt");
 import bcrypt from 'bcrypt';
-// require("dotenv").config();
 import dotenv from 'dotenv';
 dotenv.config();
-// const sql = require("mysql2");
-import sql from 'mysql2';
 const router = express.Router();
-
-// const user=require('../../models/user.js');
 import user from '../../models/user.js';
-
 
 router.post("/signIn", async (req, res) => {
 	
