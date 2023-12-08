@@ -21,7 +21,7 @@ const attModel=sequelize.define('attModel',{
     userName:{
         type:DataTypes.STRING,
         allowNull:false,
-        
+
     },
     pCount:{
         type:DataTypes.STRING,
@@ -31,7 +31,6 @@ const attModel=sequelize.define('attModel',{
 {
 	timestamps:false,
 	tableName:'att',
-	
 });
 
 export default attModel;

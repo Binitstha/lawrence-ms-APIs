@@ -8,9 +8,11 @@ app.use(cors());
 import register from './http/routes/register.js';
 import signIn from './http/routes/signin.js';
 import attendance from './http/routes/attendance.js';
+import notices from './http/routes/notices.js';
 app.use("/authentication", signIn);
 app.use("/authentication", register);
 app.use("/",attendance);
+app.use('/',notices);
 app.post("/getData", (req, res) => {
 	res.send(req.body);
 });
