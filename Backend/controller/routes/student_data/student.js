@@ -7,10 +7,11 @@ const sequelize = new Sequelize('userinfodb', 'root', 'password', {
 
 const studentData = sequelize.define('User',
     {
-        id: {
+        studentid: {
             type: DataTypes.BIGINT,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         },
         studentName: {
             type: DataTypes.STRING,
