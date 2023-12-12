@@ -1,4 +1,5 @@
 import { Sequelize, DataTypes } from 'sequelize';
+import studentData from '../student_data/student.js';
 const sequelize = new Sequelize('userinfodb', 'root', 'password', {
     host: 'localhost',
     dialect: "mysql"
@@ -24,5 +25,8 @@ const assingmentData = sequelize.define('User',
     timestamps: false,
     tableName: 'assignmentinfo'
 });
+
+studentData.hasMany(assingmentData, { foreignKey: 'studentid' });
+assingmentData.belongsTo(studentData, { foreignKey: 'studentid' });
 
 export default assingmentData;
