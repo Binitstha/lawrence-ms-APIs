@@ -1,8 +1,5 @@
-import { Sequelize } from 'sequelize';
 import express from "express";
 import internalMarks from "./internalmarksDB.js";
-import assingmentData from "../assignment/assingment.js"
-import studentData from "../student_data/student.js"
 const router = express.Router();
 
 router.post("/internalMarks", async (req, res) => {
@@ -23,4 +20,5 @@ router.post("/internalMarks", async (req, res) => {
   }
 
 });
+
 export default router;

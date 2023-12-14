@@ -1,28 +1,26 @@
 import { Router } from "express";
-import mysql from 'mysql';
 import { hash } from 'bcrypt';
 
 const router = Router();
-const port = 3000;
-import User from './user.js';
+import User from './userDB.js';
 
 router.post("/register", async (req, res) => {
     try {
-        const userInfo = req.body;
+        const userInfo = await req.body;
 
         await User.create({
-            id: Date.now(),
+            // id: Date.now(),
+            userName: userInfo.name,
             email: userInfo.email,
             password: await hash(userInfo.password, 10),
             token: userInfo.token,
         });
-        console.log("hello1")
+        res.send("data inserted")
     }
 
     catch (error) {
         console.error(error);
     }
-    res.send("hello");
 });
 
 export default router;

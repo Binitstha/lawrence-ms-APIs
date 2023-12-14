@@ -1,32 +1,38 @@
 import { Sequelize, DataTypes } from 'sequelize';
-import studentData from '../student_data/studentDB.js';
+
 const sequelize = new Sequelize('userinfodb', 'root', 'password', {
     host: 'localhost',
     dialect: "mysql"
 });
 
-const assingmentData = sequelize.define('User',
+const User = sequelize.define('User',
     {
-        studentid: {
+        id: {
             type: DataTypes.BIGINT,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         },
-        studentname: {
+        userName:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        email: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
         },
-        Submissiondate: {
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        token: {
             type: DataTypes.STRING,
             allowNull: true
         }
     }, {
     timestamps: false,
-    tableName: 'assignmentinfo'
+    tableName: 'userinfo'
 });
 
-studentData.hasMany(assingmentData, { foreignKey: 'studentid' });
-assingmentData.belongsTo(studentData, { foreignKey: 'studentid' });
-
-export default assingmentData;
+export default User

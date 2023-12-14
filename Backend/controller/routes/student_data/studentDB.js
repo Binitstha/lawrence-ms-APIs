@@ -5,29 +5,39 @@ const sequelize = new Sequelize('userinfodb', 'root', 'password', {
     dialect: "mysql"
 });
 
-const User = sequelize.define('User',
+const studentData = sequelize.define('User',
     {
-        id: {
+        studentid: {
             type: DataTypes.BIGINT,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
+        },
+        studentName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: false
         },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique : true
         },
-        password: {
+        semester:{
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        address: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        token: {
+        phoneNumber:{
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         }
     }, {
     timestamps: false,
-    tableName: 'userinfo'
+    tableName: 'studentInfo'
 });
 
-export default User
+export default studentData

@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import findOne from '../userRegister/user.js';
-import update from '../userRegister/user.js';
+import findOne from '../userRegister/userDB.js';
+import update from '../userRegister/userDB.js';
 import { hash } from 'bcrypt';
 
 import { codeGenerator } from './forgetPassword.js';
 import { getEmail } from './forgetPassword.js';
-import User from '../userRegister/user.js';
+import User from '../userRegister/userDB.js';
 
 console.log(codeGenerator())
 const resetRouter = Router();

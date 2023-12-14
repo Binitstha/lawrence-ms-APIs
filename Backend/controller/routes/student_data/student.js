@@ -1,43 +1,19 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { Router } from "express"
+import studentData from "./studentDB.js";
+const router = Router();
 
-const sequelize = new Sequelize('userinfodb', 'root', 'password', {
-    host: 'localhost',
-    dialect: "mysql"
+router.get("/studentData", async (req, res) => {
+    try {
+        const result = await studentData.findAll({
+          attributes: ['studentname'],
+          raw: true
+        });
+        const studentNames = result.map((row) => row.studentname);
+        res.json({studentNames})
+      } catch (err) {
+        res.status(500).send('Internal Server Error');
+        throw err
+      }
 });
 
-const studentData = sequelize.define('User',
-    {
-        studentid: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        studentName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: false
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique : true
-        },
-        semester:{
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        address: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        phoneNumber:{
-            type: DataTypes.STRING,
-            allowNull: false
-        }
-    }, {
-    timestamps: false,
-    tableName: 'studentInfo'
-});
-
-export default studentData
+export default router;

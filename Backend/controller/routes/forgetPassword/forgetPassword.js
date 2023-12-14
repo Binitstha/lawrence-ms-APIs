@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 import { createTransport } from "nodemailer";
-import User from "../userRegister/user.js";
+import User from "../userRegister/userDB.js";
 
 let genratedCode;
 
