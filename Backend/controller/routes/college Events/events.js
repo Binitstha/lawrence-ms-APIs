@@ -7,7 +7,6 @@ router.post('/events', async (req, res) => {
          const result = await collegeEvents.findAll({
              raw: true
             })
-            console.log("result",result)
             res.json(result)
         } catch (err) { throw err }
 })

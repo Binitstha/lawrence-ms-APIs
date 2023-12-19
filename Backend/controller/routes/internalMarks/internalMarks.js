@@ -5,8 +5,6 @@ const router = express.Router();
 router.post("/internalMarks", async (req, res) => {
   const userinfo = await req.body;
 
-  console.log("userinfo",userinfo)
-
   try {
     await internalMarks.create({
       studentid: userinfo.studentid,

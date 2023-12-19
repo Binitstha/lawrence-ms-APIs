@@ -26,12 +26,10 @@ router.post("/forgetPassword", async (req, res) => {
 
         await codeGenerator();
         await emailSend();
-        console.log("Email sent");
     } catch (error) {
         console.log(error);
         return res.send("user not found");
     }
-    console.log("forget", reqEmail);
 });
 
 export function codeGenerator() {
@@ -50,7 +48,6 @@ export function codeGenerator() {
     } catch (error) {
         throw error;
     }
-    console.log(genratedCode);
     return genratedCode;
 }
 
