@@ -13,6 +13,7 @@ import assignmentRoute from "./controller/routes/assignment/assingmentEntry.js"
 import internalmarksRoute from "./controller/routes/internalMarks/internalMarks.js"
 import EventsRoute from "./controller/routes/college Events/events.js"
 import addEventsRoute from "./controller/routes/college Events/addEvents.js"
+import syllabusRoute from "./controller/routes/syllabus/syllabus.js"
 
 app.use(cors())
 app.use("/", registerRoute);
@@ -24,6 +25,7 @@ app.use("/", assignmentRoute);
 app.use("/", internalmarksRoute);
 app.use("/", EventsRoute);
 app.use("/", addEventsRoute);
+app.use("/", syllabusRoute);
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
