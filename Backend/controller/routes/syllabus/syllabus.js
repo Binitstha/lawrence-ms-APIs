@@ -21,10 +21,10 @@ router.post('/syllabus', async (req, res) => {
             "status": "200",
             "message": "Syllabus entry is completed"
         }
-        res.send(response)
+        res.status(200).send(response)
     } catch (err) {
         console.log(err)
-        res.send(err)
+        res.status(500).send(err)
     }
 })
 router.get('/syllabusLoad', async (req, res) => {
@@ -33,7 +33,6 @@ router.get('/syllabusLoad', async (req, res) => {
             attributes: ['subjectCode', 'chapterId', 'status'],
             raw: true
         });
-        const resultarray = result.map((row) => { row.chapterId, row.status });
         res.json({ result })
     } catch (err) {
         res.status(500).send('Internal Server Error');
