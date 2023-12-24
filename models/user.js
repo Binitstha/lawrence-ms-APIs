@@ -1,6 +1,6 @@
 // const {Sequelize,DataTypes}= require('sequelize');
 import {Sequelize,DataTypes} from 'sequelize';
-const sqlize=new Sequelize('userDatabase','root','2319',
+const sqlize=new Sequelize('cms','root','2319',
 	{
 		dialect : 'mysql',
         host:'localhost'
@@ -9,7 +9,7 @@ const sqlize=new Sequelize('userDatabase','root','2319',
 async function sqlizeAuth(){
 try{
 	await sqlize.authenticate();
-	console.log('Connected to the database');
+	console.log('Connected to the Students database');
 } catch(error){
 	console.log("error");
 }
@@ -17,28 +17,35 @@ try{
 sqlizeAuth();
 
 const user=sqlize.define('user',{
+	id:{
+		type: DataTypes.BIGINT,
+		allowNull:false,
+		primaryKey:true
+	},
 	email:{
 		type: DataTypes.STRING,
 		allowNull: false,
-		primaryKey:true,
-
 	},
 	password: {
 		type: DataTypes.STRING,
 		allowNull:false,
 	},
-	token: {
-		type: DataTypes.STRING,
-		allowNull:true,
-	},
-	username:{
+	name:{
 		type: DataTypes.STRING,
 		allowNull:false,
 	},
+	contact:{
+		type:DataTypes.BIGINT,
+		allowNull:false
+	},
+	semester:{
+		type:DataTypes.INTEGER,
+		allowNull:false,
+	}
 	
 },{
 	timestamps:false,
-	tableName:'users',
+	tableName:'students',
 	
 });
 

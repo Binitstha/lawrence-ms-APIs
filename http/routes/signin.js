@@ -11,34 +11,53 @@ router.post("/signIn", async (req, res) => {
 
 	//search for entered email
 	const email = req.body.email;
-	const password = req.body.password;
-
+	const password = atob(req.body.password);
 	try{
-	const currentUser= await user.findAll({
+	const currentUser= await user.findOne({
 		where: {
 			email:email,
 		}
 	});
 	
-	bcrypt.compare(password,currentUser[0].password,(error,result)=>{
+	bcrypt.compare(password,currentUser.password,(error,result)=>{
 		if(error) return console.log("server error");
-		
+		console.log(result);
 		if(result){
+			console.log(result);
 			const payload=req.body;
 			const secretKey=process.env.SECRET_KEY;
 			const token=jwt.sign(payload,secretKey);
-			return res.status(200).send(token);
+			const response={
+				status:'200',
+				data:{
+					name:currentUser.name,
+					email:email,
+					contact:currentUser.user,
+					token:token,
+					semester:currentUser.semester,
+				},
+				message:'Signin successful',
+			}
+			return res.status(200).send(response);
 		}
 		else{
-			return res.send('Incorrect credentials');
+			return res.send({
+				status:'401',
+				error:{
+					message:'Incorrect credentials',
+				}
+			});
 		}
 	})
 	
 }catch(error){
-	res.send('No user found');
-	console.error("error");
+	res.send({
+		status:'404',
+		error:{
+			message:'No such user found',
+		}
+	});
+	console.error(error);
 }
 });
-
-
 export default router;

@@ -5,7 +5,12 @@ const router=express.Router();
 router.get('/getAssignments',async (req,res)=>{
     const assignments= await assModel.findAll({
     });
-    res.status(200).send(assignments);
+    const response={
+        status:'200',
+        data:assignments,
+        message:'Assignment retrived successfully',
+    }
+    res.status(200).send(response);
 })
 
 export default router;

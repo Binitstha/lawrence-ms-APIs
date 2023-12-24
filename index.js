@@ -10,14 +10,13 @@ import signIn from './http/routes/signin.js';
 import attendance from './http/routes/attendance.js';
 import notices from './http/routes/notices.js';
 import assignments from './http/routes/assignment.js';
+import getFullStudents from './http/routes/getFullStudents.js';
 app.use("/authentication", signIn);
 // app.use("/authentication", register);
 app.use("/",attendance);
 app.use('/',notices);
 app.use('/',assignments);
-app.post("/getData", (req, res) => {
-	res.send(req.body);
-});
+app.use('/',getFullStudents);
 app.listen(process.env.PORT, () =>
 	console.log(`Example app listening on port ${process.env.PORT}!`)
 );
