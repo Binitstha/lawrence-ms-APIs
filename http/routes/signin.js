@@ -29,13 +29,7 @@ router.post("/signIn", async (req, res) => {
 			const token=jwt.sign(payload,secretKey);
 			const response={
 				status:'200',
-				data:{
-					name:currentUser.name,
-					email:email,
-					contact:currentUser.user,
-					token:token,
-					semester:currentUser.semester,
-				},
+				data:currentUser,
 				message:'Signin successful',
 			}
 			return res.status(200).send(response);

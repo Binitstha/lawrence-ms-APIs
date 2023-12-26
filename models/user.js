@@ -34,18 +34,31 @@ const user=sqlize.define('user',{
 		type: DataTypes.STRING,
 		allowNull:false,
 	},
-	contact:{
+	phone:{
 		type:DataTypes.BIGINT,
 		allowNull:false
 	},
-	semester:{
+	position:{
+		type:DataTypes.STRING,
+		allowNull:false,
+	},
+	address:{
+		type:DataTypes.STRING,
+		allowNull:false,
+	},
+	age:{
 		type:DataTypes.INTEGER,
 		allowNull:false,
+	},
+	gender:{
+		type:DataTypes.STRING,
+		allowNull:false,
 	}
+
 	
 },{
 	timestamps:false,
-	tableName:'students',
+	tableName:'users',
 	
 });
 
