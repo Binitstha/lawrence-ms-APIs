@@ -26,7 +26,11 @@ const questionDB = sequelize.define('user',
             type: DataTypes.STRING,
             allowNull: false
         },
-        subject: {
+        subject_code: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        mark: {
             type: DataTypes.STRING,
             allowNull: false
         }
