@@ -13,12 +13,12 @@ router.put('/questionEntry',async (req, res) => {
             subject_code: userInfo.subject_code,
             mark : userInfo.mark,
         });
-        res.send("data inserted")
+        res.status(200).send("data inserted")
     }
 
     catch (error) {
         console.error(error);
-        res.send(error)
+        res.status(500).send(error)
     }
 })
 router.post('/questionDelete',async (req, res) => {
