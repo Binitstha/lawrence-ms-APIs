@@ -34,12 +34,12 @@ router.post('/questionDelete',async (req, res) => {
                     mark : userInfo.mark
             }
         });
-        res.send("Deleted")
+        res.status(200).send("Deleted")
     }
 
     catch (error) {
         console.error(error);
-        res.send(error)
+        res.status(500).send(error)
     }
 })
 
