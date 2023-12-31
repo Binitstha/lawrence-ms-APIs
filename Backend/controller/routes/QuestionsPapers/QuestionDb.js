@@ -34,11 +34,11 @@ const questionDB = sequelize.define('user',
             type: DataTypes.STRING,
             allowNull: false
         },
-        // image:
-        // {
-        //     type: DataTypes.BLOB("long"),
-        //     allowNull: true
-        // }
+        image:
+        {
+            type: DataTypes.BLOB,
+            allowNull: true
+        }
     }, {
     timestamps: false,
     tableName: 'question'

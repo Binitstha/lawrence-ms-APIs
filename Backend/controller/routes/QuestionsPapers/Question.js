@@ -4,11 +4,9 @@ const router = express.Router()
 
 router.get('/questions', async (req, res) => {
     try {
-        const result = await questionDB.findAll({
-            raw: true
-        })
-        res.json({ result })
-    } catch(err) {
+        const result = await questionDB.findAll()
+        res.send(result)
+    } catch (err) {
         res.send(err)
     }
 })
