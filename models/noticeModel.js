@@ -31,10 +31,6 @@ const notice=sequelize.define('notice',{
     date:{
         type:DataTypes.DATE,
         allowNull:false,
-    },
-    semester:{
-        type:DataTypes.INTEGER,
-        allowNull:false
     }
 },{
     timestamps:false,
