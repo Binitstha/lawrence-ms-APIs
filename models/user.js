@@ -34,7 +34,7 @@ const user=sqlize.define('user',{
 		type: DataTypes.STRING,
 		allowNull:false,
 	},
-	phone:{
+	contact:{
 		type:DataTypes.BIGINT,
 		allowNull:false
 	},
