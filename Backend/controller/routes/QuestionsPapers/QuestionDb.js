@@ -36,7 +36,7 @@ const questionDB = sequelize.define('user',
         },
         image:
         {
-            type: DataTypes.BLOB,
+            type: DataTypes.STRING,
             allowNull: true
         }
     }, {
