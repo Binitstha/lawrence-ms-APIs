@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();
 const router = express.Router();
-import user from '../../models/user.js';
+import user from '../../modals/user.js';
 
 router.post("/signIn", async (req, res) => {
 	

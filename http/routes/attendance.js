@@ -1,6 +1,6 @@
 import express from 'express';
 const router=express.Router();
-import attModel from '../../models/attandenceModel.js';
+import attModel from '../../modals/attandenceModel.js';
 import setAttendance from '../../controller/attendanceSetter.js';
 router.post('/setAttendance',(req,res)=>{
 

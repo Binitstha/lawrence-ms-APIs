@@ -1,6 +1,6 @@
 import  {Router}  from 'express';
 const router=Router();
-import user from "../../models/user.js";
+import user from "../../modals/user.js";
 
 
 router.get('/getAllStudents',async (req,res)=>{

@@ -1,4 +1,4 @@
-import attModel from "../models/attandenceModel.js";
+import attModel from "../modals/attandenceModel.js";
 function setAttendance(req) {
 	const body = req.body;
 	body.forEach(async (item) => {
