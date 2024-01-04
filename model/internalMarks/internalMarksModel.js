@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from 'sequelize';
-import studentData from '../students/studentModal.js';
+import studentData from '../students/studentModel.js';
 const sequelize = new Sequelize('userinfodb', 'root', 'password', {
     host: 'localhost',
     dialect: "mysql"

@@ -1,14 +1,8 @@
-import express from 'express'
-import { fileURLToPath } from 'url';
-import questionDB from '../../../modals/questions/questionModal.js'
+import questionDB from '../../../model/questions/questionModel.js';
+
 import path, { dirname, join } from 'path'; // Import 'dirname' and 'join' from the 'path' module
 import multer from 'multer';
-import fs from 'fs';
-import cors from 'cors'
-import { error } from 'console';
 
-const router = express.Router()
-router.use(express.static('./'))
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "public/images")
@@ -18,15 +12,15 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname))
     }
 })
+export const upload = multer({ storage: storage });
 
-router.use(cors())
-const upload = multer({ storage: storage })
 
-router.put('/questionEntry', upload.single('image'), async (req, res) => {
+
+export const questionEntryController=async (req,res)=>{
     const userInfo = await req.body;
     console.log("file", req.file)
     // const imageBuffer = req.file ? fs.readFileSync(req.file.path) : null
-    const imageBuffer = req.file ? req.file.path : null
+    const imageBuffer = req.file.path
     console.log(imageBuffer)
     try {
         await questionDB.create({
@@ -51,11 +45,13 @@ router.put('/questionEntry', upload.single('image'), async (req, res) => {
             res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
-})
-router.post('/questionDelete', async (req, res) => {
+}
+
+
+export const questionDeleteController=async (req,res)=>{
     try {
         const userInfo = await req.body;
-        console.log(userInfo)
+
         const result = await questionDB.destroy({
             where: {
                 question: userInfo.question,
@@ -77,6 +73,14 @@ router.post('/questionDelete', async (req, res) => {
         console.error(error);
         res.status(500).send(error)
     }
-})
+}
 
-export default router
+
+export const getQuestionsControler=async (req,res)=>{
+    try {
+        const result = await questionDB.findAll();
+        res.send(result);
+    } catch (err) {
+        res.send(err);
+    }
+} 

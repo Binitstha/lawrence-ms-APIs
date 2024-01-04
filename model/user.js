@@ -3,13 +3,13 @@ import {Sequelize,DataTypes} from 'sequelize';
 const sqlize=new Sequelize('cms','root','2319',
 	{
 		dialect : 'mysql',
-        host:'localhost'
+        host:'localhost',
 	});
     
 async function sqlizeAuth(){
 try{
 	await sqlize.authenticate();
-	console.log('Connected to the Students database');
+	console.log('Connected to the remote  database');
 } catch(error){
 	console.log("error");
 }
@@ -38,27 +38,14 @@ const user=sqlize.define('user',{
 		type:DataTypes.BIGINT,
 		allowNull:false
 	},
-	position:{
-		type:DataTypes.STRING,
-		allowNull:false,
-	},
-	address:{
-		type:DataTypes.STRING,
-		allowNull:false,
-	},
-	age:{
+	semester:{
 		type:DataTypes.INTEGER,
 		allowNull:false,
-	},
-	gender:{
-		type:DataTypes.STRING,
-		allowNull:false,
 	}
-
 	
 },{
 	timestamps:false,
-	tableName:'users',
+	tableName:'students',
 	
 });
 

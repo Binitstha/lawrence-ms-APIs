@@ -36,4 +36,4 @@ const notice=sequelize.define('notice',{
     timestamps:false,
     tableName:'noticesTable',
 });
-export default notice
+export default notice;

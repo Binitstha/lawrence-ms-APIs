@@ -1,5 +1,5 @@
 import { Router } from "express"
-import studentData from "../../../modals/students/studentModal.js";
+import studentData from "../../../model/students/studentModel.js";
 const router = Router();
 
 router.get("/studentData", async (req, res) => {
