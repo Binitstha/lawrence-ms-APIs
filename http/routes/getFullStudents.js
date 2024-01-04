@@ -1,11 +1,11 @@
 import  {Router}  from 'express';
 const router=Router();
-import user from "../../modals/user.js";
 
+import student from '../../model/studentModel.js';
 
 router.get('/getAllStudents',async (req,res)=>{
     try{
-        const allStudents= await user.findAll({});
+        const allStudents= await student.findAll({});
         const response={
         status:200,
         data:allStudents,
@@ -23,16 +23,13 @@ router.get('/getAllStudents',async (req,res)=>{
 });
 router.post('/addStudent', async (req,res)=>{
 
-    await user.create({
+    await student.create({
         id:req.body.id,
         email:req.body.email,
         password:req.body.password,
         name:req.body.name,
         contact:req.body.contact,
-        position:req.body.position,
-        address:req.body.address,
-        age:req.body.age,
-        gender:req.body.gender
+        semester:req.body.semester,
     }).then((data)=>{
         const response={
             status:200,

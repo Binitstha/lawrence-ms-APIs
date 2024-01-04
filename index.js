@@ -9,7 +9,7 @@ app.use(cors());
 import signIn from './http/routes/signin.js';
 import attendance from './http/routes/attendance.js';
 import notices from './http/routes/notices.js';
-import assignments from './modals/assignment/addStudentAssignmentModal.js';
+import assignments from './model/assignment/addStudentAssignmentModel.js';
 import getFullStudents from './http/routes/getFullStudents.js';
 
 import registerRoute from "./http/routes/userRegister/register.js";

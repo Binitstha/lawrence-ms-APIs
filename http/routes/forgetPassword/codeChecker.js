@@ -5,7 +5,7 @@ import { hash } from 'bcrypt';
 
 import { codeGenerator } from './forgetPassword.js';
 import { getEmail } from './forgetPassword.js';
-import User from '../../../modals/user/userModal.js';
+import User from '../../../model/user/userModal.js';
 
 const resetRouter = Router();
 let codeMatch;

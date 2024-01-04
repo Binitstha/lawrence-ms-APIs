@@ -1,6 +1,6 @@
 import cors from 'cors'
 import express from 'express'
-import questionDB from '../../../modals/questions/questionModal.js';
+import questionDB from '../../../model/questions/questionModel.js';
 const router = express.Router()
 
 router.use(express.static('./'))

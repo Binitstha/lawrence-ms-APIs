@@ -1,6 +1,6 @@
 import express from 'express'
 import { fileURLToPath } from 'url';
-import questionDB from '../../../modals/questions/questionModal.js'
+import questionDB from '../../../model/questions/questionModel.js'
 import path, { dirname, join } from 'path'; // Import 'dirname' and 'join' from the 'path' module
 import multer from 'multer';
 import fs from 'fs';

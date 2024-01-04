@@ -1,5 +1,5 @@
 import express from 'express'
-import collegeEvents from '../../../modals/events/eventModal.js';
+import collegeEvents from '../../../model/events/eventModel.js';
 const router = express.Router()
 
 router.post('/getEvents', async (req, res) => {

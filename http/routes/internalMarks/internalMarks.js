@@ -1,5 +1,5 @@
 import express from "express";
-import internalMarks from "../../../modals/internalMarks/internalMarksModal.js";
+import internalMarks from "../../../model/internalMarks/internalMarksModel.js";
 const router = express.Router();
 
 router.post("/internalMarks", async (req, res) => {

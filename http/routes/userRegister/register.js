@@ -2,7 +2,7 @@ import { Router } from "express";
 import { hash } from 'bcrypt';
 
 const router = Router();
-import User from '../../../modals/user/userModal.js';
+import User from '../../../model/user/userModal.js';
 
 router.post("/register", async (req, res) => {
     try {

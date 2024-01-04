@@ -1,5 +1,5 @@
 import express from 'express';
-import notice from '../../modals/noticeModel.js';
+import notice from '../../model/noticeModel.js';
 const router=express.Router();
 
 router.get('/getNotices',async (req,res)=>{

@@ -1,4 +1,4 @@
-import SyllabusData from "../../../modals/syllabus/syllabusModal.js";
+import SyllabusData from "../../../model/syllabus/syllabusModel.js";
 import { Router } from "express";
 
 const router = Router()

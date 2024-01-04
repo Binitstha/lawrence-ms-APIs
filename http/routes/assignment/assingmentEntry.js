@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import assingmentData from '../../../modals/assignment/addStudentAssignmentModal.js';
+import assingmentData from '../../../model/assignment/addStudentAssignmentModel.js';
 const router = Router()
 const month = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 

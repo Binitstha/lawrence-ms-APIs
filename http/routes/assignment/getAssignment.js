@@ -1,5 +1,5 @@
 import express from 'express';
-import assModel from '../../../modals/assignment/createAssignmentModal.js'; 
+import assModel from '../../../model/assignment/createAssignmentModel.js'; 
 const router=express.Router();
 
 router.get('/getAssignments',async (req,res)=>{

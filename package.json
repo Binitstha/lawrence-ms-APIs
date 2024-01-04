@@ -1,7 +1,6 @@
 {
   "name": "apis",
   "version": "1.0.0",
-  "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -30,5 +29,7 @@
     "nodemon": "^3.0.2",
     "sequelize": "^6.35.1",
     "sequelize-cli": "^6.6.2"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
