@@ -6,7 +6,7 @@ import multer from 'multer';
 import fs from 'fs';
 import cors from 'cors'
 import { error } from 'console';
-    
+
 const router = express.Router()
 router.use(express.static('./'))
 const storage = multer.diskStorage({
@@ -26,7 +26,7 @@ router.put('/questionEntry', upload.single('image'), async (req, res) => {
     const userInfo = await req.body;
     console.log("file", req.file)
     // const imageBuffer = req.file ? fs.readFileSync(req.file.path) : null
-    const imageBuffer = req.file.path
+    const imageBuffer = req.file ? req.file.path : null
     console.log(imageBuffer)
     try {
         await questionDB.create({
@@ -55,7 +55,7 @@ router.put('/questionEntry', upload.single('image'), async (req, res) => {
 router.post('/questionDelete', async (req, res) => {
     try {
         const userInfo = await req.body;
-
+        console.log(userInfo)
         const result = await questionDB.destroy({
             where: {
                 question: userInfo.question,
