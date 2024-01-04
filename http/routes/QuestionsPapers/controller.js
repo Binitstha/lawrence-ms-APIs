@@ -19,8 +19,8 @@ export const upload = multer({ storage: storage });
 export const questionEntryController=async (req,res)=>{
     const userInfo = await req.body;
     console.log("file", req.file)
-    // const imageBuffer = req.file ? fs.readFileSync(req.file.path) : null
-    const imageBuffer = req.file.path
+    const imageBuffer = req.file ? req.file.path : null
+    // const imageBuffer = req.file.path
     console.log(imageBuffer)
     try {
         await questionDB.create({
