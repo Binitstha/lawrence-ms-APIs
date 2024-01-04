@@ -1,8 +1,5 @@
-import express from "express";
-import notice from "../../model/noticeModel.js";
-const router = express.Router();
-
-router.get("/getNotices", async (req, res) => {
+import notice from "../../../model/noticeModel.js";
+export const getNoticesController = async (req, res) => {
 	try {
 		const notices = await notice.findAll();
 		const response = {
@@ -11,7 +8,6 @@ router.get("/getNotices", async (req, res) => {
 			message: "Notices retrived successfully",
 		};
 		res.status(200).send(response);
-
 	} catch (error) {
 		const response = {
 			status: 500,
@@ -20,9 +16,9 @@ router.get("/getNotices", async (req, res) => {
 		};
 		return res.status(500).send(response);
 	}
-});
+};
 
-router.post("/addNotice", async (req, res) => {
+export const addNoticeController = async (req, res) => {
 	await notice
 		.create({
 			id: req.body.id,
@@ -46,6 +42,4 @@ router.post("/addNotice", async (req, res) => {
 			};
 			res.status(500).send(response);
 		});
-});
-
-export default router;
+};
