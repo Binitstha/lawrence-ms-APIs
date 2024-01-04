@@ -15,7 +15,7 @@ async function sequelizeAuth(){
 
 sequelizeAuth();
 
-const student=sequelize.define('student',{
+const user=sequelize.define('user',{
 	id:{
 		type:DataTypes.BIGINT,
 		allowNull:false,
@@ -37,13 +37,26 @@ const student=sequelize.define('student',{
 		type:DataTypes.BIGINT,
 		allowNull:false,
 	},
-	semester:{
-		type:DataTypes.INTEGER,
+	position:{
+		type:DataTypes.STRING,
 		allowNull:false,
+	},
+	address:{
+		type:DataTypes.STRING,
+		allowNull:false
+	},
+	age :{
+		type:DataTypes.INTEGER,
+		allowNull:false
+	},
+	gender:{
+		type:DataTypes.STRING,
+		allowNull:false
 	}
+
 
 }, {
 	timestamps:false,
-	tableName:'students',
+	tableName:'users',
 });
-export default student;
+export default user;

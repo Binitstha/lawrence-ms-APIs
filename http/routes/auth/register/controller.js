@@ -1,10 +1,5 @@
-import { Router } from "express";
 import { hash } from 'bcrypt';
-
-const router = Router();
-import User from '../../../model/user/userModal.js';
-
-router.post("/register", async (req, res) => {
+const registerController=async (req,res)=>{
     try {
         const userInfo = await req.body;
 
@@ -21,6 +16,5 @@ router.post("/register", async (req, res) => {
     catch (error) {
         console.error(error);
     }
-});
-
-export default router;
+}
+export default registerController;

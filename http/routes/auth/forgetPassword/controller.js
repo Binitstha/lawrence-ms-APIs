@@ -1,7 +1,7 @@
-import { Router } from "express";
-const router = Router();
 import { createTransport } from "nodemailer";
-import User from "../../../model/user/userModal.js";
+
+import user from "../../../../model/user/userModal.js";
+
 
 let genratedCode;
 
@@ -9,11 +9,11 @@ export const getEmail = async (req) => {
     return req.body.email;
 };
 
-router.post("/forgetPassword", async (req, res) => {
+export const forgetPasswordController=async (req,res)=>{
+    console.log("forgetRequest");
     let reqEmail = await getEmail(req);
-
     try {
-        const databaseEmail = await User.findAll({
+        const databaseEmail = await user.findAll({
             where: {
                 email: reqEmail,
             },
@@ -30,9 +30,9 @@ router.post("/forgetPassword", async (req, res) => {
         console.log(error);
         return res.send("user not found");
     }
-});
+}
 
-export function codeGenerator() {
+export const codeGenerator=()=>{
     const codeArray = [];
     for (let i = 0; i < 5; i++) {
         const radNum = Math.floor(Math.random() * 10);
@@ -51,7 +51,9 @@ export function codeGenerator() {
     return genratedCode;
 }
 
-async function emailSend() {
+
+
+export const emailSend=async ()=>{
     const transporter = createTransport({
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
@@ -78,4 +80,3 @@ async function emailSend() {
     });
 }
 
-export default router;

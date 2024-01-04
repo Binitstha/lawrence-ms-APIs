@@ -1,15 +1,8 @@
-import express from 'express';
+import user from "../../../../model/studentModel.js";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
-dotenv.config();
-const router = express.Router();
-import user from '../../model/user.js';
-
-router.post("/signIn", async (req, res) => {
-	
-
-	//search for entered email
+const signInController=async (req,res)=>{
+    //search for entered email
 	const email = req.body.email;
 	const password = atob(req.body.password);
 	try{
@@ -53,5 +46,5 @@ router.post("/signIn", async (req, res) => {
 	});
 	console.error(error);
 }
-});
-export default router;
+}
+export default signInController;

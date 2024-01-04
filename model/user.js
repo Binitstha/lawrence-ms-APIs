@@ -1,15 +1,15 @@
 // const {Sequelize,DataTypes}= require('sequelize');
 import {Sequelize,DataTypes} from 'sequelize';
-const sqlize=new Sequelize('sql12674468','sql12674468','ZyKhdG9tz6',
+const sqlize=new Sequelize('cms','root','2319',
 	{
 		dialect : 'mysql',
-        host:'sql12.freemysqlhosting.net',
+        host:'localhost',
 	});
     
 async function sqlizeAuth(){
 try{
 	await sqlize.authenticate();
-	console.log('Connected to the remote Students database');
+	console.log('Connected to the remote  database');
 } catch(error){
 	console.log("error");
 }
