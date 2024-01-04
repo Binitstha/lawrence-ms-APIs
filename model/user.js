@@ -1,22 +1,21 @@
-// const {Sequelize,DataTypes}= require('sequelize');
-import {Sequelize,DataTypes} from 'sequelize';
-const sqlize=new Sequelize('cms','root','2319',
-	{
-		dialect : 'mysql',
-        host:'localhost',
-	});
-    
-async function sqlizeAuth(){
-try{
-	await sqlize.authenticate();
-	console.log('Connected to the remote  database');
-} catch(error){
-	console.log("error");
-}
-}
-sqlizeAuth();
+import { Sequelize,DataTypes } from "sequelize";
+const sequelize= new Sequelize('sql12674468','sql12674468','ZyKhdG9tz6',{
+	dialect:'mysql',
+	host:'sql12.freemysqlhosting.net',
+});
 
-const user=sqlize.define('user',{
+async function sequelizeAuth(){
+	try{
+		await sequelize.authenticate();
+		console.log("Connected to students database!");
+	} catch(error){
+		console.log(error);
+	}
+}
+
+sequelizeAuth();
+
+const user=sequelize.define('user',{
 	id:{
 		type: DataTypes.BIGINT,
 		allowNull:false,
@@ -34,19 +33,26 @@ const user=sqlize.define('user',{
 		type: DataTypes.STRING,
 		allowNull:false,
 	},
+	role:{
+		type:DataTypes.STRING,
+		allowNull:false
+	},
 	contact:{
 		type:DataTypes.BIGINT,
 		allowNull:false
 	},
-	semester:{
+	age:{
 		type:DataTypes.INTEGER,
 		allowNull:false,
+
+	},
+	address:{
+		type:DataTypes.STRING,
+		allowNull:false
 	}
-	
 },{
 	timestamps:false,
-	tableName:'students',
+	tableName:'users',
 	
 });
-
 export default user;

@@ -10,6 +10,7 @@ import studentData from './http/routes/student_data/routes.js';
 import syllabus from './http/routes/syllabus/routes.js';
 import attendance from './http/routes/attendance/routes.js';
 import notice from './http/routes/notices/routes.js';
+import user from './http/routes/user/routes.js';
 
 app.use('/auth',auth);
 app.use('/assignment',assignment);
@@ -20,5 +21,8 @@ app.use('/studentData',studentData);
 app.use('/syllabus',syllabus);
 app.use('/attendance',attendance);
 app.use('/notice',notice);
+app.use('/user',user);
+
+
 
 export default app;

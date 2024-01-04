@@ -1,17 +1,8 @@
-import express from "express";
-import user from "../../model/studentModel.js";
-const router = express.Router();
+import user from "../../../model/user.js";
 
-router.get('/hithere', (req, res)=>{
-	console.log('Hi there');
-	return res.send("Hello");
-});
-
-// router.get("/getAllStudents", async (req, res) => {
-router.get("/getAllStudents", async (req, res) => {
+export const getAllusersController = async (req, res) => {
 	try {
 		const allStudents = await user.findAll();
-        console.log(allStudents);
 		const response = {
 			status: 200,
 			data: allStudents,
@@ -26,20 +17,19 @@ router.get("/getAllStudents", async (req, res) => {
 		};
 		return res.status(500).send(response);
 	}
-});
+};
 
-router.post("/addStudent", async (req, res) => {
-	await student
+export const addUserController = async (req, res) => {
+    await user
 		.create({
 			id: req.body.id,
 			email: req.body.email,
 			password: req.body.password,
 			name: req.body.name,
 			contact: req.body.contact,
-			position: req.body.position,
+			role: req.body.role,
 			address: req.body.address,
 			age: req.body.age,
-			gender: req.body.gender,
 		})
 		.then((data) => {
 			const response = {
@@ -56,6 +46,4 @@ router.post("/addStudent", async (req, res) => {
 				message: "Failed to add student",
 			});
 		});
-});
-
-export default router;
+};
