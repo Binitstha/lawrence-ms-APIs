@@ -17,12 +17,12 @@ const signInController=async (req,res)=>{
 		console.log(result);
 		if(result){
 			console.log(result);
-			const payload=req.body;
+			const payload=JSON.stringify(currentUser);
 			const secretKey=process.env.SECRET_KEY;
 			const token=jwt.sign(payload,secretKey);
 			const response={
 				status:'200',
-				data:currentUser,
+				data:token,
 				message:'Signin successful',
 			}
 			return res.status(200).send(response);
