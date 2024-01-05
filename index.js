@@ -22,7 +22,6 @@ app.use(cors());
 // import EventsRoute from "./http/routes/college Events/getEvents.js"
 // import addEventsRoute from "./http/routes/college Events/addEvents.js"
 // import syllabusRoute from "./http/routes/syllabus/syllabus.js"
-// import questionEntryRoute from "./http/routes/QuestionsPapers/routes.js"
 // import questionsRoute from "./http/routes/QuestionsPapers/routes.js"
 
 // app.use("/", registerRoute);
@@ -35,7 +34,6 @@ app.use(cors());
 // app.use("/", EventsRoute);
 // app.use("/", addEventsRoute);
 // app.use("/", syllabusRoute);
-// app.use("/", questionEntryRoute);
 // app.use("/", questionsRoute);
 
 
