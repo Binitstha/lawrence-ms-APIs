@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Notices {
+  id          String   @id @default(cuid()) @db.Char(25)
+  // num_id      Int      @id @default(autoincrement())
+  title       String
+  description String
+  date        DateTime
+}
+
+model User {
+  id         String       @id @default(cuid()) @db.Char(25)
+  name       String
+  email      String       @unique
+  password   String
+  contact    String
+  role       String
+  age        Int
+  address    String
+  Students   Students[]
+  Teachers   Teachers[]
+  Tokens     Tokens[]
+  Attendance Attendance[]
+}
+
+model Students {
+  student_id String @id
+  student    User   @relation(fields: [student_id], references: [id])
+  semester   Int
+}
+
+model Teachers {
+  teacher_id String     @id
+  teacher    User       @relation(fields: [teacher_id], references: [id])
+  Subjects   Subjects[]
+}
+
+model Tokens {
+  id    String @id
+  user  User   @relation(fields: [id], references: [id])
+  token String @db.Char(255)
+}
+
+model Subjects {
+  subject_id String   @id
+  name       String
+  semester   Int
+  teacher_id String
+  teacher    Teachers @relation(fields: [teacher_id], references: [teacher_id])
+}
+
+model Attendance {
+  id               String @id
+  student          User   @relation(fields: [id], references: [id])
+  attendance_count Int
+}
+
+model Assignment {
+  id          String @id
+  title       String
+  description String
+}

@@ -1,49 +1,101 @@
-import user from "../../../model/user.js";
+// import user from "../../../model/user.js";
+import bcrypt from "bcrypt";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-export const getAllusersController = async (req, res) => {
-	try {
-		const allStudents = await user.findAll();
-		const response = {
-			status: 200,
-			data: allStudents,
-			message: "All students retrives sucessfully",
-		};
-		return res.status(200).send(response);
-	} catch (error) {
-		const response = {
-			status: 500,
-			message: "Internal Error",
-			error: error,
-		};
-		return res.status(500).send(response);
-	}
-};
-
-export const addUserController = async (req, res) => {
-    await user
-		.create({
-			id: req.body.id,
-			email: req.body.email,
-			password: req.body.password,
-			name: req.body.name,
-			contact: req.body.contact,
-			role: req.body.role,
-			address: req.body.address,
-			age: req.body.age,
+export const getAllUsers = async (req, res) => {
+	await prisma.user
+		.findMany({
+			include: {},
 		})
 		.then((data) => {
-			const response = {
+			return res.status(200).send({
 				status: 200,
 				data: data,
-				message: "Student added sucessfully",
-			};
-			return res.status(200).send(response);
+				message: "Students retrived sucessfully",
+			});
 		})
 		.catch((error) => {
 			return res.status(500).send({
 				status: 500,
 				error: error,
-				message: "Failed to add student",
+				message: "Retriving students failed",
 			});
 		});
+};
+
+export const addUser = async (req, res) => {
+	await prisma.user
+		.create({
+			data: {
+				name: req.body.name,
+				email: req.body.email,
+				password: await bcrypt.hash(req.body.password, 12),
+				contact: req.body.contact,
+				role: req.body.role,
+				age: req.body.age,
+				address: req.body.address,
+			},
+		})
+		.then((data) => {
+			return res.status(200).send({
+				status: 200,
+				data: data,
+				message: "User added sucessfully",
+			});
+		})
+		.catch((error) => {
+			return res.status(500).send({
+				status: 500,
+				error: error,
+				message: "User creation unsucessful",
+			});
+		});
+};
+
+export const getAllStudents = async (req, res) => {
+	await prisma.user
+		.findMany({
+			where: {
+				role: "student",
+			},
+		})
+		.then((data) => {
+			return res.status(200).send({
+				status: 200,
+				data: data,
+				message: "Students retrived sucessfully",
+			});
+		})
+		.catch((error) => {
+			return res.status(500).send({
+				status: 500,
+				error: error,
+				message: "Retriving students failed",
+			});
+		});
+};
+
+export const getUser = async (req, res) => {
+	await prisma.user.findFirst({
+		where: {
+			id:req.body.id
+		},
+	}).then((user)=>{
+
+		// remove password from json
+		const {password,...responsedata}=user;
+
+		return res.status(200).send({
+			status:200,
+			data:responsedata,
+			message:'User retrived sucessfully'
+		});
+	}).catch((error)=>{
+		return res.status(500).send({
+			status:500,
+			error:error,
+			message:'Internal server error'
+		});
+	});
 };

@@ -1,45 +1,49 @@
 import notice from "../../../model/noticeModel.js";
+
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
 export const getNoticesController = async (req, res) => {
+	
 	try {
-		const notices = await notice.findAll();
-		const response = {
-			status: "200",
-			data: notices,
-			message: "Notices retrived successfully",
-		};
-		res.status(200).send(response);
-	} catch (error) {
-		const response = {
-			status: 500,
-			message: "Internal Error",
+		const notices=await prisma.notices.findMany();
+		const response= {
+			status:'200',
+			data:notices,
+			message:'Notices retrived sucessfully'
+		}
+		return res.status(200).send(response);
+	} catch (error){
+		const response={
+			status: "500",
 			error: error,
-		};
+			message: "Server error",
+		}
 		return res.status(500).send(response);
 	}
 };
 
 export const addNoticeController = async (req, res) => {
-	await notice
-		.create({
-			id: req.body.id,
-			header: req.body.header,
-			description: req.body.description,
-			date: req.body.date,
-		})
-		.then((data) => {
-			const response = {
-				status: "200",
-				data: data,
-				message: "Notice added successfully",
-			};
-			res.status(200).send(response);
-		})
-		.catch((error) => {
-			const response = {
-				status: "500",
-				error: error,
-				message: "Error notice insersion",
-			};
-			res.status(500).send(response);
+	try {
+
+		const notice = await prisma.notices.create({
+			data: {
+				title: req.body.title,
+				description: req.body.description,
+				date: new Date(Date.now() + 20700000), // +offset
+			},
 		});
+		const response = {
+			status: "200",
+			data: notice,
+			message: "Notice inserserted scucessfully",
+		};
+		return res.status(200).send(response);
+	} catch (error) {
+		return res.status(500).send({
+			status:'500',
+			error:error,
+			message:'Could not add notice',
+		});
+	}
 };
