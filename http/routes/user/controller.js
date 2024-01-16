@@ -25,6 +25,19 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const addUser = async (req, res) => {
+	if (
+		await prisma.user.findFirst({
+			where: {
+				email: req.body.email,
+			},
+		})
+	) {
+		return res.status(403).send({
+			status: 403,
+			error: "Email already in use",
+			message: "Email already in use",
+		});
+	}
 	await prisma.user
 		.create({
 			data: {
@@ -77,25 +90,27 @@ export const getAllStudents = async (req, res) => {
 };
 
 export const getUser = async (req, res) => {
-	await prisma.user.findFirst({
-		where: {
-			id:req.body.id
-		},
-	}).then((user)=>{
+	await prisma.user
+		.findFirst({
+			where: {
+				id: req.body.id,
+			},
+		})
+		.then((user) => {
+			// remove password from json
+			const { password, ...responsedata } = user;
 
-		// remove password from json
-		const {password,...responsedata}=user;
-
-		return res.status(200).send({
-			status:200,
-			data:responsedata,
-			message:'User retrived sucessfully'
+			return res.status(200).send({
+				status: 200,
+				data: responsedata,
+				message: "User retrived sucessfully",
+			});
+		})
+		.catch((error) => {
+			return res.status(500).send({
+				status: 500,
+				error: error,
+				message: "Internal server error",
+			});
 		});
-	}).catch((error)=>{
-		return res.status(500).send({
-			status:500,
-			error:error,
-			message:'Internal server error'
-		});
-	});
 };

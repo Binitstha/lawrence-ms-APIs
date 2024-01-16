@@ -1,7 +1,24 @@
 import attModel from "../../../model/attandenceModel.js";
 
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
 export const getAttendanceController = async (req, res) => {
-	const students = await attModel.findAll({});
+	// const students = await attModel.findAll({});
+
+	const students = await prisma.user.findMany({
+		where: {
+			role: "student",
+			Students: {
+				some: {
+					semester_id: req.body.semesterId,
+				},
+			},
+		},
+		include: {
+			Students: true,
+		},
+	});
 	const response = {
 		message: "200",
 		data: students,
@@ -31,13 +48,12 @@ export const setAttendanceController = async (req, res) => {
 				data: "",
 				message: "Unable to set attendance",
 			});
-
 		} catch (error) {
-            res.status(200).send({
-                status:'200',
-                data:'',
-                message:'Assignment set successfull',
-          });
+			res.status(200).send({
+				status: "200",
+				data: "",
+				message: "Assignment set successfull",
+			});
 			return error;
 		}
 	});
