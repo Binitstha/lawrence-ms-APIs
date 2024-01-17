@@ -9,14 +9,14 @@ export const getAttendanceController = async (req, res) => {
 	const students = await prisma.user.findMany({
 		where: {
 			role: "student",
-			Students: {
+			Student: {
 				some: {
 					semester_id: req.body.semesterId,
 				},
 			},
 		},
 		include: {
-			Students: true,
+			Student: true,
 		},
 	});
 	const response = {
