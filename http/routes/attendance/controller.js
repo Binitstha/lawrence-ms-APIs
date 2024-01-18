@@ -15,10 +15,9 @@ export const getAttendanceController = async (req, res) => {
 				},
 			},
 		},
-		include: {
-			Student: true,
-		},
 	});
+
+	
 	const response = {
 		message: "200",
 		data: students,

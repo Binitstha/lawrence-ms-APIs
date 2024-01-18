@@ -25,7 +25,7 @@ model User {
   password   String
   contact    String
   role       String
-  age        Int
+  age        String
   address    String
   Student    Student[]
   Teacher    Teacher[]

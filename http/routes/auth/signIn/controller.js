@@ -64,12 +64,12 @@ export default signInController;
 
 
 const storeToken=async (user,token)=>{
-	if(await prisma.tokens.findFirst({
+	if(await prisma.token.findFirst({
 		where:{
 			id:user.id
 		}
 	})){
-		return await prisma.tokens.update({
+		return await prisma.token.update({
 			data:{
 				token:token,
 			},
@@ -79,7 +79,7 @@ const storeToken=async (user,token)=>{
 		})
 	}
 
-	return await prisma.tokens.create({
+	return await prisma.token.create({
 		data:{
 			id:user.id,
 			token:token

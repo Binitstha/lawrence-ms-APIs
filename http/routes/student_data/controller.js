@@ -1,4 +1,8 @@
 import studentData from "../../../model/students/studentModel.js";
+import bcrypt from "bcrypt";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
 export const getStudentDataController = async (req, res) => {
 	try {
 		const result = await studentData.findAll({
@@ -14,13 +18,23 @@ export const getStudentDataController = async (req, res) => {
 };
 
 export const addStudentDataController = async (req, res) => {
-    const userInfo = await req.body;
-    await studentData.create({
-        studentName: userInfo.studentname,
-        email: userInfo.email,
-        semester: userInfo.semester,
-        address: userInfo.address,
-        phoneNumber: userInfo.phonenumber
-    })
-    res.send("Data inserted")
+
+	prisma.user
+		.create({
+			data: {
+				name: req.body.name,
+				email: req.body.email,
+				password: await bcrypt.hash(req.body.password,12),
+				contact: req.body.contact,
+				role: "student",
+				age: req.body.age,
+				address: req.body.address,
+			},
+		})
+		.then((data) => {
+			console.log(data);
+		})
+		.catch((error) => {
+			console.log(error);
+		});
 };
