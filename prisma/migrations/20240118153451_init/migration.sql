@@ -69,7 +69,34 @@ CREATE TABLE `Assignment` (
     `id` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
+    `assignedDate` VARCHAR(191) NOT NULL,
+    `dueDate` VARCHAR(191) NOT NULL,
 
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `events` (
+    `id` VARCHAR(191) NOT NULL,
+    `events` VARCHAR(191) NOT NULL,
+    `eventDesc` VARCHAR(191) NOT NULL,
+    `date` VARCHAR(191) NOT NULL,
+    `venue` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `question` (
+    `id` VARCHAR(191) NOT NULL,
+    `question` VARCHAR(191) NOT NULL,
+    `year` VARCHAR(191) NOT NULL,
+    `semester` VARCHAR(191) NOT NULL,
+    `subject_code` VARCHAR(191) NOT NULL,
+    `mark` VARCHAR(191) NOT NULL,
+    `image` VARCHAR(191) NULL,
+
+    UNIQUE INDEX `question_question_year_key`(`question`, `year`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

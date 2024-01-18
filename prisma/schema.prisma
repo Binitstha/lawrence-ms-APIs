@@ -27,9 +27,9 @@ model User {
   role       String
   age        Int
   address    String
-  Student   Student[]
-  Teacher   Teacher[]
-  Token     Token[]
+  Student    Student[]
+  Teacher    Teacher[]
+  Token      Token[]
   Attendance Attendance[]
 }
 
@@ -40,9 +40,9 @@ model Student {
 }
 
 model Teacher {
-  teacher_id String     @id
-  teacher    User       @relation(fields: [teacher_id], references: [id])
-  Subject   Subject[]
+  teacher_id String    @id
+  teacher    User      @relation(fields: [teacher_id], references: [id])
+  Subject    Subject[]
 }
 
 model Token {
@@ -52,7 +52,7 @@ model Token {
 }
 
 model Subject {
-  subject_id  String   @id
+  subject_id  String  @id
   name        String
   semester_id String
   teacher_id  String
@@ -66,7 +66,29 @@ model Attendance {
 }
 
 model Assignment {
-  id          String @id
-  title       String
-  description String
+  id           String @id
+  title        String
+  description  String
+  assignedDate String
+  dueDate      String
+}
+
+model events {
+  id        String @id @default(cuid()) @db.Char(25)
+  events    String
+  eventDesc String
+  date      String
+  venue     String
+}
+
+model question {
+  id           String  @id @default(cuid()) @db.Char(25)
+  question     String
+  year         String
+  semester     String
+  subject_code String
+  mark         String
+  image        String?
+
+  @@unique([question, year], name: "question_year_unique_constraint")
 }
