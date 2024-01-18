@@ -1,4 +1,4 @@
-import notice from "../../../model/noticeModel.js";
+// import notice from "../../../model/noticeModel.js";
 
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
@@ -6,11 +6,11 @@ const prisma = new PrismaClient();
 export const getNoticesController = async (req, res) => {
 	
 	try {
-		const notices=await prisma.notices.findMany();
+		const notice=await prisma.notice.findMany();
 		const response= {
 			status:'200',
-			data:notices,
-			message:'Notices retrived sucessfully'
+			data:notice,
+			message:'notice retrived sucessfully'
 		}
 		return res.status(200).send(response);
 	} catch (error){
@@ -26,7 +26,7 @@ export const getNoticesController = async (req, res) => {
 export const addNoticeController = async (req, res) => {
 	try {
 
-		const notice = await prisma.notices.create({
+		const notice = await prisma.notice.create({
 			data: {
 				title: req.body.title,
 				description: req.body.description,

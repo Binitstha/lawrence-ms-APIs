@@ -89,6 +89,8 @@ export const getAllStudents = async (req, res) => {
 		});
 };
 
+
+
 export const getUser = async (req, res) => {
 	await prisma.user
 		.findFirst({
