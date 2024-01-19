@@ -16,7 +16,6 @@ const storage = multer.diskStorage({
 export const upload = multer({ storage: storage });
 
 export const questionEntryController = async (req, res) => {
-    console.log("HEHEH")
     const userInfo = await req.body;
     console.log("file", req.file)
     const imageBuffer = req.file ? req.file.path : null

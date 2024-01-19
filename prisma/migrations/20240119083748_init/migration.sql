@@ -16,7 +16,7 @@ CREATE TABLE `User` (
     `password` VARCHAR(191) NOT NULL,
     `contact` VARCHAR(191) NOT NULL,
     `role` VARCHAR(191) NOT NULL,
-    `age` INTEGER NOT NULL,
+    `age` VARCHAR(191) NOT NULL,
     `address` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
@@ -77,7 +77,7 @@ CREATE TABLE `Assignment` (
 
 -- CreateTable
 CREATE TABLE `events` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` CHAR(25) NOT NULL,
     `events` VARCHAR(191) NOT NULL,
     `eventDesc` VARCHAR(191) NOT NULL,
     `date` VARCHAR(191) NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE `events` (
 
 -- CreateTable
 CREATE TABLE `question` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` CHAR(25) NOT NULL,
     `question` VARCHAR(191) NOT NULL,
     `year` VARCHAR(191) NOT NULL,
     `semester` VARCHAR(191) NOT NULL,
