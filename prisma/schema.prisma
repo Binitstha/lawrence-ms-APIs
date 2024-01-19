@@ -15,9 +15,9 @@ model Notice {
 }
 
 model User {
-  id         String      @id @default(cuid()) @db.Char(25)
+  id         String       @id @default(cuid()) @db.Char(25)
   name       String
-  email      String      @unique
+  email      String       @unique
   password   String
   contact    String
   role       String
@@ -81,12 +81,12 @@ model events {
 
 model question {
   id           String  @id @default(cuid()) @db.Char(25)
-  question     String
+  question     String  @db.LongText
   year         String
   semester     String
   subject_code String
   mark         String
   image        String?
 
-  @@unique([question, year], name: "question_year_unique_constraint")
+  @@unique([question(length: 100), year], name: "question_year_unique_constraint")
 }

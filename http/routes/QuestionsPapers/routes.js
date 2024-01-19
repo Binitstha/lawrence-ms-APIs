@@ -4,7 +4,6 @@ import { getQuestionsControler, questionDeleteController, questionEntryControlle
 import { upload } from './controller.js';
 
 
-router.use(express.static('./'));
 router.put('/questionEntry', upload.single('image'), async (req, res) => {
     questionEntryController(req,res);
 })
