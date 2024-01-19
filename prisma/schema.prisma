@@ -72,7 +72,7 @@ model Assignment {
 }
 
 model events {
-  id        String @id @db.Char(25)
+  id        String @id @default(cuid()) @db.Char(25)
   events    String
   eventDesc String
   date      String
@@ -80,7 +80,7 @@ model events {
 }
 
 model question {
-  id           String  @id @db.Char(25)
+  id           String  @id @default(cuid()) @db.Char(25)
   question     String
   year         String
   semester     String
@@ -88,5 +88,5 @@ model question {
   mark         String
   image        String?
 
-  @@unique([question, year])
+  @@unique([question, year], name: "question_year_unique_constraint")
 }

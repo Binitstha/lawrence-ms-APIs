@@ -1,4 +1,5 @@
-import questionDB from '../../../model/questions/questionModel.js';
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 import path, { dirname, join } from 'path'; // Import 'dirname' and 'join' from the 'path' module
 import multer from 'multer';
@@ -14,28 +15,29 @@ const storage = multer.diskStorage({
 })
 export const upload = multer({ storage: storage });
 
-
-
-export const questionEntryController=async (req,res)=>{
+export const questionEntryController = async (req, res) => {
     const userInfo = await req.body;
     console.log("file", req.file)
     const imageBuffer = req.file ? req.file.path : null
     // const imageBuffer = req.file.path
     console.log(imageBuffer)
     try {
-        await questionDB.create({
-            question: userInfo.question,
-            year: userInfo.year,
-            semester: userInfo.semester,
-            subject_code: userInfo.subject_code,
-            mark: userInfo.mark,
-            image: imageBuffer
+        const data = await prisma.question.create({
+            data: {
+                question: userInfo.question,
+                year: userInfo.year,
+                semester: userInfo.semester,
+                subject_code: userInfo.subject_code,
+                mark: userInfo.mark,
+                image: imageBuffer
+            }
         });
+        console.log(data)
         res.status(200).send("data inserted")
     }
 
     catch (error) {
-        if (error.parent.code == 'ER_DUP_ENTRY') {
+        if (error.code == 'P2002') {
             console.error('Duplicate entry error:', error.message);
             res.status(400).json({ error: 'Duplicate entry error', message: error.message });
         }
@@ -44,15 +46,15 @@ export const questionEntryController=async (req,res)=>{
             console.log("error code", error.code)
             res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
+        console.log(error)
     }
 }
 
-
-export const questionDeleteController=async (req,res)=>{
+export const questionDeleteController = async (req, res) => {
+    const userInfo = await req.body;
     try {
-        const userInfo = await req.body;
 
-        const result = await questionDB.destroy({
+        const result = await prisma.question.deleteMany({
             where: {
                 question: userInfo.question,
                 year: userInfo.year,
@@ -75,12 +77,35 @@ export const questionDeleteController=async (req,res)=>{
     }
 }
 
-
-export const getQuestionsControler=async (req,res)=>{
+export const getQuestionsControler = async (req, res) => {
     try {
-        const result = await questionDB.findAll();
+        const result = await prisma.question.findMany();
         res.send(result);
     } catch (err) {
-        res.send(err);
+        console.error(err)
+        res.status(500).send(err);
     }
-} 
+}
+// Close Prisma client when the script exits
+process.on('beforeExit', async () => {
+    await prisma.$disconnect();
+});
+
+// Close Prisma client on unhandled exceptions
+process.on('uncaughtException', async (err) => {
+    console.error('Uncaught Exception:', err);
+    await prisma.$disconnect();
+    process.exit(1);
+});
+
+// Close Prisma client on process termination
+process.on('SIGINT', async () => {
+    await prisma.$disconnect();
+    process.exit(0);
+});
+
+// Close Prisma client on process termination for Windows
+process.on('SIGTERM', async () => {
+    await prisma.$disconnect();
+    process.exit(0);
+});
