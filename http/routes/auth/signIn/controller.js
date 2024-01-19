@@ -15,12 +15,12 @@ const signInController = async (req, res) => {
 				email: email,
 			},
 		});
-		console.log(currentUser);
+		// console.log(currentUser);
 
 		bcrypt.compare(password,currentUser.password, async (error, result) => {	console.log(password);
 
 			if (error) return console.log("server error");
-			console.log(result);
+			console.log(`${currentUser.id} signed in!`);
 
 			if (result) {
 				// console.log(result);

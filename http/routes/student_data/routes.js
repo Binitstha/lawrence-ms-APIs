@@ -4,11 +4,11 @@ const router=express.Router();
 
 
 
-router.get("/getStudentData", async (req, res) => {
+router.get("/getStudent", async (req, res) => {
     getStudentDataController(req,res);
 });
 
-router.post("/addStudentData", async (req, res) => {
+router.post("/addStudent", async (req, res) => {
     addStudentDataController(req,res);
 });
 export default router;
