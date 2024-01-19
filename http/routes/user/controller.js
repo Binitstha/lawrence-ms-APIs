@@ -51,18 +51,29 @@ export const addUser = async (req, res) => {
 			},
 		})
 		.then((data) => {
-			return res.status(200).send({
+			res.status(200).send({
 				status: 200,
 				data: data,
 				message: "User added sucessfully",
 			});
+			console.log('addded');
+			return {
+				status: 200,
+				data: data,
+				message: "User added sucessfully",
+			};
 		})
 		.catch((error) => {
-			return res.status(500).send({
+			res.status(500).send({
 				status: 500,
 				error: error,
 				message: "User creation unsucessful",
 			});
+			return {
+				status: 500,
+				error: error,
+				message: "User creation unsucessful",
+			};
 		});
 };
 
