@@ -23,6 +23,8 @@ model User {
   role       String
   age        String
   address    String
+  gender     String
+  photo      String?
   Attendance Attendance[]
   Student    Student[]
   Teacher    Teacher[]

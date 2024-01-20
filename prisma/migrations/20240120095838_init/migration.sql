@@ -18,6 +18,8 @@ CREATE TABLE `User` (
     `role` VARCHAR(191) NOT NULL,
     `age` VARCHAR(191) NOT NULL,
     `address` VARCHAR(191) NOT NULL,
+    `gender` VARCHAR(191) NOT NULL,
+    `photo` VARCHAR(191) NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`id`)
@@ -90,14 +92,14 @@ CREATE TABLE `events` (
 -- CreateTable
 CREATE TABLE `question` (
     `id` CHAR(25) NOT NULL,
-    `question` VARCHAR(191) NOT NULL,
+    `question` LONGTEXT NOT NULL,
     `year` VARCHAR(191) NOT NULL,
     `semester` VARCHAR(191) NOT NULL,
     `subject_code` VARCHAR(191) NOT NULL,
     `mark` VARCHAR(191) NOT NULL,
     `image` VARCHAR(191) NULL,
 
-    UNIQUE INDEX `question_question_year_key`(`question`, `year`),
+    UNIQUE INDEX `question_question_year_key`(`question`(100), `year`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
