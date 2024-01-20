@@ -17,7 +17,7 @@ app.use('/assignment',assignment);
 app.use('/events',events);
 app.use('/internalMarks',internalMarks);
 app.use('/questions',questions);
-app.use('/studentData',studentData);
+app.use('/student',studentData);
 app.use('/syllabus',syllabus);
 app.use('/attendance',attendance);
 app.use('/notice',notice);

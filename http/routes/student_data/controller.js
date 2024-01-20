@@ -1,6 +1,16 @@
-import studentData from "../../../model/students/studentModel.js";
+// import studentData from "../../../model/students/studentModel.js";
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
+import multer from "multer";
+import fs from 'fs/promises'
+import { dirname } from 'path';
+import path from "path";
+import { fileURLToPath } from "url";
+import { addUser } from "../user/controller.js";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
 const prisma = new PrismaClient();
 
 export const getStudentDataController = async (req, res) => {
@@ -18,23 +28,10 @@ export const getStudentDataController = async (req, res) => {
 };
 
 export const addStudentDataController = async (req, res) => {
-
-	prisma.user
-		.create({
-			data: {
-				name: req.body.name,
-				email: req.body.email,
-				password: await bcrypt.hash(req.body.password,12),
-				contact: req.body.contact,
-				role: "student",
-				age: req.body.age,
-				address: req.body.address,
-			},
-		})
-		.then((data) => {
-			console.log(data);
-		})
-		.catch((error) => {
-			console.log(error);
-		});
+	const newStudent=await addUser(req,res);
+	// console.log(newStudent);
+    const image= req.file;
+	const pathToFolder='../user/photo';
+	const filename=path.join(__dirname,pathToFolder,"as.jpg");
+	await fs.writeFile(filename,image.buffer);
 };
