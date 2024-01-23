@@ -1,14 +1,18 @@
 import express from 'express';
-const router=express.Router();
+const router = express.Router();
 import { getAssignmentController } from "./controller.js";
-import { assignmentEntryController } from "./controller.js";
-router.get('/getAssignments',async (req,res)=>{
-    getAssignmentController(req,res);
+// import addAssignmentController from "./controller.js"
+import { assignmentCheckController } from "./controller.js";
+
+router.get('/getAssignments', async (req, res) => {
+    getAssignmentController(req, res);
 })
 
-
-
-router.post('/setStudentAssignment', async (req, res) => {
-    assignmentEntryController(req,res);
+router.put('/setStudentAssignment', async (req, res) => {
+    assignmentCheckController(req, res);
 })
+
+// router.post('/addAssignment', async (req, res) => {
+//     addAssignmentController(req, res);
+// })
 export default router;

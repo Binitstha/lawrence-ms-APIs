@@ -18,20 +18,6 @@ const storage = multer.diskStorage({
 })
 export const upload = multer({ storage: storage });
 
-export const getStudentDataController = async (req, res) => {
-	try {
-		const result = await studentData.findAll({
-			attributes: ["studentname"],
-			raw: true,
-		});
-		const studentNames = result.map((row) => row.studentname);
-		res.json({ studentNames });
-	} catch (err) {
-		res.status(500).send("Internal Server Error");
-		throw err;
-	}
-};
-
 export const addStudentDataController = async (req, res) => {
 	if (
 		await prisma.user.findFirst({
@@ -64,7 +50,10 @@ export const addStudentDataController = async (req, res) => {
 				photo: image,
 			}
 		})
-		res.status(200).send("data inserted")
+		res.status(200).send({
+			status: 200,
+			message: "Student data inserted successfully",
+		})
 	} catch (err) {
 		console.error(err)
 		res.status(500).send("Internal server error")

@@ -13,7 +13,7 @@ export const getAssignmentController=async (req,res)=>{
 
 
 import assingmentData from '../../../model/assignment/addStudentAssignmentModel.js';
-export const assignmentEntryController=async ()=>{
+export const assignmentCheckController=async ()=>{
     const month = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
     const userinfo = await req.body;
 
@@ -35,3 +35,7 @@ export const assignmentEntryController=async ()=>{
         }
     })
 }
+
+// export const addAssignmentController = async()=>{
+
+// }

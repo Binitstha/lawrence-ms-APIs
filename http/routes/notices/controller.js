@@ -40,6 +40,7 @@ export const addNoticeController = async (req, res) => {
 		};
 		return res.status(200).send(response);
 	} catch (error) {
+		console.error(error);
 		return res.status(500).send({
 			status:'500',
 			error:error,
