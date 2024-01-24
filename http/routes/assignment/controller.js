@@ -34,7 +34,7 @@ export const assignmentCheckController = async (req, res) => {
                 await assingmentData.create({
                     studentid: element.studentid,
                     studentname: element.studentname,
-                    Submissiondate: date.getFullYear() + "/" + month[date.getMonth()] + "/" + date.getDate()
+                    Submissiondate: date.getFullYear() + "-" + month[date.getMonth()] + "-" + date.getDate()
                 })
                 res.send("data inserted!")
             } catch (err) {
@@ -47,21 +47,61 @@ export const assignmentCheckController = async (req, res) => {
 }
 export const addAssignmentController = async (req, res) => {
     const date = new Date();
-    console.log(req.body);
     const body = await req.body
-    try {
-        const result = await prisma.assignment.create({
-            data: {
-                semester: body.semester,
-                title: body.Title,
-                description: body.Description,
-                assignedDate: date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate(),
-                dueDate: body.Date
-            }
-        })
-        res.status(200).send("Data inserted");
-    } catch (err) {
-        console.log(err);
-        res.status(500).send("Error");
+    if (await prisma.assignment.findFirst({
+        where: {
+            title: body.title,
+            description: body.Description
+        }
+    })) {
+        return res.status(403).send({ message: "Duplicate entry" })
+    }
+    else {
+        try {
+            const result = await prisma.assignment.create({
+                data: {
+                    semester: body.semester,
+                    title: body.Title,
+                    description: body.Description,
+                    assignedDate: date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate(),
+                    dueDate: body.Date
+                }
+            })
+            res.status(200).send({ message: "Data inserted" });
+        } catch (err) {
+            console.log(err);
+            res.status(500).send("Error");
+        }
     }
 }
+export const deleteAssignment = async (req, res) => {
+    const body = req.body;
+    console.log(body)
+    if (await prisma.assignment.findFirst({
+        where: {
+            title: body.title,
+            description: body.description,
+            dueDate: body.dueDate
+        }
+    })) {
+        try {
+            const result = await prisma.assignment.deleteMany({
+                where: {
+                    title: body.title,
+                    description: body.description,
+                    dueDate: body.dueDate
+                }
+            });
+            console.log(result);
+            res.status(200).send({ message: "Assignment Deleted" });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({ message: "Server error" });
+        }
+        const remainingAssignments = await prisma.assignment.findMany();
+        console.log('Remaining Assignments:', remainingAssignments);
+    } else {
+        console.log("Not found")
+    }
+
+};
