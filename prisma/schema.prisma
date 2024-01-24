@@ -66,7 +66,8 @@ model Attendance {
 }
 
 model Assignment {
-  id           String @id
+  id           String @id @default(cuid()) @db.Char(25)
+  semester     String
   title        String
   description  String
   assignedDate String

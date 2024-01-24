@@ -69,7 +69,8 @@ CREATE TABLE `Attendance` (
 
 -- CreateTable
 CREATE TABLE `Assignment` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` CHAR(25) NOT NULL,
+    `semester` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
     `assignedDate` VARCHAR(191) NOT NULL,
