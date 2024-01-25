@@ -63,7 +63,7 @@ export const addAssignmentController = async (req, res) => {
                     semester: body.semester,
                     title: body.Title,
                     description: body.Description,
-                    assignedDate: date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate(),
+                    assignedDate: date.getFullYear() + "/" + date.getMonth()+1 + "/" + date.getDate(),
                     dueDate: body.Date
                 }
             })
@@ -92,16 +92,13 @@ export const deleteAssignment = async (req, res) => {
                     dueDate: body.dueDate
                 }
             });
-            console.log(result);
             res.status(200).send({ message: "Assignment Deleted" });
         } catch (err) {
-            console.error(err);
+            console.e;ror(err);
             res.status(500).send({ message: "Server error" });
         }
-        const remainingAssignments = await prisma.assignment.findMany();
-        console.log('Remaining Assignments:', remainingAssignments);
     } else {
         console.log("Not found")
+        // res.status(404).send({message: "Assingment not found"});
     }
-
-};
+}
