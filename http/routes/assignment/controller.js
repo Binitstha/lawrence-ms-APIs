@@ -91,7 +91,7 @@ export const deleteAssignment = async (req, res) => {
                     description: body.description,
                     dueDate: body.dueDate
                 }
-            });
+            }); 
             res.status(200).send({ message: "Assignment Deleted" });
         } catch (err) {
             console.e;ror(err);
@@ -99,6 +99,6 @@ export const deleteAssignment = async (req, res) => {
         }
     } else {
         console.log("Not found")
-        // res.status(404).send({message: "Assingment not found"});
+        res.status(404).send({message: "Assingment not found"});
     }
 }
