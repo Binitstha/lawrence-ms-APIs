@@ -71,8 +71,8 @@ CREATE TABLE `Attendance` (
 CREATE TABLE `Assignment` (
     `id` CHAR(25) NOT NULL,
     `semester` VARCHAR(191) NOT NULL,
-    `title` VARCHAR(191) NOT NULL,
-    `description` VARCHAR(191) NOT NULL,
+    `title` LONGTEXT NOT NULL,
+    `description` LONGTEXT NOT NULL,
     `assignedDate` VARCHAR(191) NOT NULL,
     `dueDate` VARCHAR(191) NOT NULL,
 
