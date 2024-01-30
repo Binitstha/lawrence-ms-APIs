@@ -17,16 +17,17 @@ const signInController = async (req, res) => {
 		});
 		// console.log(currentUser);
 
-		bcrypt.compare(password,currentUser.password, async (error, result) => {	console.log(password);
+		bcrypt.compare(password, currentUser.password, async (error, result) => {
+			// console.log(password);
 
 			if (error) return console.log("server error");
-			console.log(`${currentUser.id} signed in!`);
-
+			
 			if (result) {
+				console.log(`${currentUser.id} signed in!`);
 				// console.log(result);
 				const payload = JSON.stringify({
-					id:currentUser.id,
-					email:currentUser.email
+					id: currentUser.id,
+					email: currentUser.email,
 				});
 				const secretKey = process.env.SECRET_KEY;
 				const token = jwt.sign(payload, secretKey);
@@ -37,7 +38,7 @@ const signInController = async (req, res) => {
 				};
 
 				// check for previous token
-				storeToken(currentUser,token);
+				storeToken(currentUser, token);
 
 				return res.status(200).send(response);
 			} else {
@@ -59,30 +60,47 @@ const signInController = async (req, res) => {
 		console.error(error);
 	}
 };
-export default signInController;
+export {signInController};
 
-
-
-const storeToken=async (user,token)=>{
-	if(await prisma.token.findFirst({
-		where:{
-			id:user.id
-		}
-	})){
-		return await prisma.token.update({
-			data:{
-				token:token,
+const storeToken = async (user, token) => {
+	if (
+		await prisma.token.findFirst({
+			where: {
+				id: user.id,
 			},
-			where:{
-				id:user.id
-			}
 		})
+	) {
+		return await prisma.token.update({
+			data: {
+				token: token,
+			},
+			where: {
+				id: user.id,
+			},
+		});
 	}
 
 	return await prisma.token.create({
-		data:{
-			id:user.id,
-			token:token
-		}
+		data: {
+			id: user.id,
+			token: token,
+		},
 	});
 };
+
+
+export const getUserFullDetails=async(req,res)=>{
+	await prisma.user.findFirst({
+		where:{
+			id:req.body.id
+		}
+	}).then((data)=>{
+		const { password, ...responsedata } = data;
+
+		res.status(200).send({
+			status:200,
+			data:(responsedata),
+			message:'Data retrived sucessfully'
+		})
+	})
+}

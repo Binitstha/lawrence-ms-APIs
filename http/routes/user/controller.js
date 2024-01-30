@@ -38,6 +38,7 @@ export const addUser = async (req, res) => {
 			message: "Email already in use",
 		});
 	}
+	console.log(req.body);
 	await prisma.user
 		.create({
 			data: {
@@ -48,6 +49,8 @@ export const addUser = async (req, res) => {
 				role: req.body.role,
 				age: req.body.age,
 				address: req.body.address,
+				gender:req.body.gender,
+				photo:req.body.photo
 			},
 		})
 		.then((data) => {
