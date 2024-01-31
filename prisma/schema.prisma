@@ -62,6 +62,7 @@ model Subject {
 model Attendance {
   id               String @id
   attendance_count Int
+  semester_id      String
   student          User   @relation(fields: [id], references: [id])
 }
 
