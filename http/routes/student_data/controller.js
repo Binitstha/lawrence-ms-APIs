@@ -9,11 +9,11 @@ import multer from 'multer';
 
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		cb(null, "public/images/studentImage")
+		cb(null, "public/images/studentImages");
 	},
 	filename: (req, file, cb) => {
-		console.log(file)
-		cb(null, Date.now() + path.extname(file.originalname))
+		// console.log(file);
+		cb(null, Date.now() + path.extname(file.originalname));
 	}
 })
 export const upload = multer({ storage: storage });
@@ -32,7 +32,6 @@ export const addStudentDataController = async (req, res) => {
 			message: "Email already in use",
 		});
 	}
-
 	try {
 		const body = await req.body
 		const image = req.file ? req.file.path : null
@@ -50,6 +49,7 @@ export const addStudentDataController = async (req, res) => {
 				photo: image,
 			}
 		})
+		addToAttendanceSheet(result);
 		res.status(200).send({
 			status: 200,
 			message: "Student data inserted successfully",
@@ -59,3 +59,12 @@ export const addStudentDataController = async (req, res) => {
 		res.status(500).send("Internal server error")
 	}
 };
+
+const addToAttendanceSheet=async (data)=>{
+	await prisma.attendance.create({
+		data:{
+			id:data.id,
+			attendance_count:0
+		}
+	})
+}

@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-import assModel from "../../../model/assignment/createAssignmentModel.js";
+// import assModel from "../../../model/assignment/createAssignmentModel.js";
 
 export const getAssignmentController = async (req, res) => {
     try {
@@ -22,7 +22,7 @@ export const getAssignmentController = async (req, res) => {
     }
 }
 
-import assingmentData from '../../../model/assignment/addStudentAssignmentModel.js';
+// import assingmentData from '../../../model/assignment/addStudentAssignmentModel.js';
 export const assignmentCheckController = async (req, res) => {
     const month = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
     const userinfo = await req.body;

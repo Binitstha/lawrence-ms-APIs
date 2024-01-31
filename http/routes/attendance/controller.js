@@ -1,4 +1,4 @@
-import attModel from "../../../model/attandenceModel.js";
+// import attModel from "../../../model/attandenceModel.js";
 
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
@@ -16,8 +16,6 @@ export const getAttendanceController = async (req, res) => {
 			},
 		},
 	});
-
-	
 	const response = {
 		message: "200",
 		data: students,
