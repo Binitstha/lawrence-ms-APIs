@@ -1,9 +1,10 @@
-import internalMarks from "../../../model/internalMarks/internalMarksModel.js";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 export const internalMarksController=async (req,res)=>{
     const userinfo = await req.body;
 
     try {
-      await internalMarks.create({
+      await prisma.internalMarks.create({
         studentid: userinfo.studentid,
         semester: userinfo.semester,
         marks: userinfo.marks,

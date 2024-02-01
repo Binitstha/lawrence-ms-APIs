@@ -1,8 +1,8 @@
-import SyllabusData from "../../../model/syllabus/syllabusModel.js";
-
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 export const getSyllabusController=async (req,res)=>{
     try {
-        const result = await SyllabusData.findAll({
+        const result = await prisma.SyllabusData.findMany({
             attributes: ['subjectCode', 'chapterId', 'status'],
             raw: true
         });
@@ -25,7 +25,7 @@ export const addSyllabusController=async(req,res)=>{
                 chapterId: element.chapterid,
                 status: status
             }
-            await SyllabusData.upsert(newData, {
+            await prisma.SyllabusData.upsert(newData, {
                 fields: ['Subjectcode', 'chapterId', 'status']
             })
         };

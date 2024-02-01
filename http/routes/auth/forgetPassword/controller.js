@@ -1,6 +1,7 @@
 import { createTransport } from "nodemailer";
 
-import user from "../../../../model/user/userModal.js";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 
 let genratedCode;
@@ -13,7 +14,7 @@ export const forgetPasswordController=async (req,res)=>{
     console.log("forgetRequest");
     let reqEmail = await getEmail(req);
     try {
-        const databaseEmail = await user.findAll({
+        const databaseEmail = await prisma.user.findMany({
             where: {
                 email: reqEmail,
             },

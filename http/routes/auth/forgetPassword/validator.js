@@ -1,6 +1,7 @@
-import user from '../../../../model/user/userModal.js';
 import { hash } from 'bcrypt';
 import { codeGenerator } from './controller.js';
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 export const validateCode=async(req)=>{
     console.log("validatorRequest");
     const userInfo = req.body;
@@ -13,7 +14,7 @@ export const validateCode=async(req)=>{
     }
     
     try {
-        const emaildata = await user.findOne({
+        const emaildata = await prisma.user.findFirst({
             where: {
                 email: reqEmail,
             },
@@ -24,7 +25,7 @@ export const validateCode=async(req)=>{
     
     try {
         if (codeMatch) {
-            await user.update(
+            await prisma.user.update(
                 {
                     password: await hash(userInfo.password, 10),
                 },

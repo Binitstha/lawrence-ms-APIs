@@ -1,11 +1,9 @@
-import collegeEvents from '../../../model/events/eventModel.js';
 
-
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 export const getEventsController=async (req,res)=>{
     try {
-        const result = await collegeEvents.findAll({
-            raw: true
-           })
+        const result = await prisma.events.findMany()
            res.send(result)
        } catch (err) { 
         console.log(err);
@@ -16,7 +14,7 @@ export const getEventsController=async (req,res)=>{
 export const addEventController= async (req,res)=>{
     const userinfo = await req.body;
     try {
-        await collegeEvents.create({
+        await prisma.events.create({
             events: userinfo.events,
             eventDesc: userinfo.eventdesc,
             date: userinfo.date,
