@@ -1,9 +1,12 @@
 import { hash } from 'bcrypt';
+
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 const registerController=async (req,res)=>{
     try {
         const userInfo = await req.body;
 
-        await User.create({
+        await prisma.user.create({
             // id: Date.now(),
             userName: userInfo.name,
             email: userInfo.email,

@@ -1,5 +1,3 @@
-// import notice from "../../../model/noticeModel.js";
-
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
