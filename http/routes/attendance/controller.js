@@ -4,14 +4,13 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export const getAttendanceController = async (req, res) => {
-	// const students = await attModel.findAll({});
-
+	console.log(req.query.semesterId);
 	const students = await prisma.user.findMany({
 		where: {
 			role: "student",
 			Student: {
 				some: {
-					semester_id: req.body.semesterId,
+					semester_id: req.query.semesterId,
 				},
 			},
 		},

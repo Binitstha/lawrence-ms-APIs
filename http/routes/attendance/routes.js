@@ -2,7 +2,7 @@ import express from 'express';
 import { getAttendanceController, setAttendanceController } from './controller.js';
 const router=express.Router();
 
-router.post('/getAttendance',(req,res)=>{
+router.get('/getAttendance',(req,res)=>{
     getAttendanceController(req,res);
 })
 
