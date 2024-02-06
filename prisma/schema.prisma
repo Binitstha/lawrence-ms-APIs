@@ -34,7 +34,7 @@ model User {
 model Student {
   student_id  String @id
   semester_id String
-  student     User   @relation(fields: [student_id], references: [id])
+  student     User   @relation(fields: [student_id], references: [id], onDelete:Cascade)
 }
 
 model Teacher {
@@ -63,7 +63,7 @@ model Attendance {
   id               String @id
   attendance_count Int
   semester_id      String
-  student          User   @relation(fields: [id], references: [id])
+  student          User   @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
 model Assignment {

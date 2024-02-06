@@ -48,7 +48,7 @@ export const addStudentDataController = async (req, res) => {
 				photo: image,
 			}
 		})
-		addToAttendanceSheet(result);
+		addToAttendanceSheet(result,body);
 		res.status(200).send({
 			status: 200,
 			message: "Student data inserted successfully",
@@ -59,11 +59,21 @@ export const addStudentDataController = async (req, res) => {
 	}
 };
 
-const addToAttendanceSheet=async (data)=>{
+const addToAttendanceSheet=async (data,body)=>{
 	await prisma.attendance.create({
 		data:{
 			id:data.id,
-			attendance_count:0
+			attendance_count:0,
+			semester_id:body.semester,
+		}
+	})
+}
+
+const addToStudentTable=async (data,body)=>{
+	await prisma.student.create({
+		data:{
+			student_id:data.id,
+			semester_id:body.semester,
 		}
 	})
 }
