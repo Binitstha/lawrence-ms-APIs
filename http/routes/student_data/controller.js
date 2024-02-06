@@ -49,6 +49,7 @@ export const addStudentDataController = async (req, res) => {
 			}
 		})
 		addToAttendanceSheet(result,body);
+		addToStudentTable(result,body);
 		res.status(200).send({
 			status: 200,
 			message: "Student data inserted successfully",
