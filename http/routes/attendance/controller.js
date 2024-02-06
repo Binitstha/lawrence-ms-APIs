@@ -15,43 +15,57 @@ export const getAttendanceController = async (req, res) => {
 				},
 			},
 		},
-	});
+		select:{
+			id:true,
+			name:true,
+		}
+	}).catch((err)=>{
+		return res.status(501).send({
+			status:501,
+			error:err,
+			message:'Error getting attendance'
+		})
+	})
 	const response = {
 		message: "200",
 		data: students,
 		message: "Attendance retrived successfully",
 	};
-	res.status(200).send(response);
+	return res.status(200).send(response);
 };
+
+
 
 export const setAttendanceController = async (req, res) => {
 	const body = req.body;
 
 	body.forEach(async (item) => {
-		try {
-			const student = await attModel.findOne({ where: { email: item.email } });
-			if (item.present) {
-				attModel.update(
-					{ pCount: student.pCount + 1 },
-					{
-						where: {
-							email: student.email,
-						},
-					}
-				);
+		// get current attendance count
+		const currentUser=await prisma.attendance.findFirst({
+			where:{
+				id:item.id,
 			}
-			return res.status(500).send({
-				status: "500",
-				data: "",
-				message: "Unable to set attendance",
-			});
-		} catch (error) {
-			res.status(200).send({
-				status: "200",
-				data: "",
-				message: "Assignment set successfull",
-			});
-			return error;
-		}
+		})
+
+		// update attendance
+		await prisma.attendance.update({
+			where:{
+				id:item.id,
+			},
+			data:{
+				attendance_count:(currentUser.attendance_count+1),
+			}
+		}).catch((err)=>{
+			return res.status(501).send({
+				status:501,
+				error:err,
+				message:'Attendance inserted sucessfully'
+			})
+		})
+		
 	});
+	return res.status(200).send({
+		status:200,
+		message:'Error updating attendance'
+	})
 };
