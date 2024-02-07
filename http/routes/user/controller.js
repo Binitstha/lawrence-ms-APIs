@@ -86,11 +86,24 @@ export const getAllStudents = async (req, res) => {
 			where: {
 				role: "student",
 			},
-		})
+			include:{
+				Student:{
+					select:{
+						semester_id:true,
+					}
+				}
+			}
+		}) 
 		.then((data) => {
+			// map data to remove password
+			const pwRemovedData=data.map((item)=>{
+				const {password,...pwRemovedData}=item;
+				return pwRemovedData;
+			})
+			console.log(pwRemovedData);
 			return res.status(200).send({
 				status: 200,
-				data: data,
+				data: pwRemovedData,
 				message: "Students retrived sucessfully",
 			});
 		})
