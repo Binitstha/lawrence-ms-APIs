@@ -6,7 +6,6 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const signInController = async (req, res) => {
-	//search for entered email
 	const email = req.body.email;
 	const password = atob(req.body.password);
 	try {
@@ -15,16 +14,11 @@ const signInController = async (req, res) => {
 				email: email,
 			},
 		});
-		// console.log(currentUser);
-
 		bcrypt.compare(password, currentUser.password, async (error, result) => {
-			// console.log(password);
-
 			if (error) return console.log("server error");
 
 			if (result) {
 				console.log(`${currentUser.id} signed in!`);
-				// console.log(result);
 				const payload = JSON.stringify({
 					id: currentUser.id,
 					email: currentUser.email,
@@ -102,7 +96,6 @@ export const getUserFullDetails = async (req, res) => {
 			}
 		}).then((data) => {
 			const { password, ...responsedata } = data;
-			console.log(responsedata)
 			res.status(200).send({
 				status: 200,
 				data: responsedata,
