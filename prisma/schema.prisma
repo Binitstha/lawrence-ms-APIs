@@ -40,13 +40,13 @@ model Student {
 model Teacher {
   teacher_id String    @id
   Subject    Subject[]
-  teacher    User      @relation(fields: [teacher_id], references: [id])
+  teacher    User      @relation(fields: [teacher_id], references: [id], onDelete: Cascade)
 }
 
 model Token {
   id    String @id
   token String @db.Char(255)
-  user  User   @relation(fields: [id], references: [id])
+  user  User   @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
 model Subject {
