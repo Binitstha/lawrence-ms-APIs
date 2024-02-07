@@ -49,8 +49,8 @@ export const addUser = async (req, res) => {
 				role: req.body.role,
 				age: req.body.age,
 				address: req.body.address,
-				gender:req.body.gender,
-				photo:req.body.photo
+				gender: req.body.gender,
+				photo: req.body.photo
 			},
 		})
 		.then((data) => {
@@ -142,3 +142,7 @@ export const getUser = async (req, res) => {
 			});
 		});
 };
+
+export const exitUserDetail = async (req,res)=>{
+	console.log(req.body)
+}
