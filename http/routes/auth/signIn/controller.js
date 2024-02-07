@@ -21,7 +21,7 @@ const signInController = async (req, res) => {
 			// console.log(password);
 
 			if (error) return console.log("server error");
-			
+
 			if (result) {
 				console.log(`${currentUser.id} signed in!`);
 				// console.log(result);
@@ -60,7 +60,7 @@ const signInController = async (req, res) => {
 		console.error(error);
 	}
 };
-export {signInController};
+export { signInController };
 
 const storeToken = async (user, token) => {
 	if (
@@ -89,18 +89,27 @@ const storeToken = async (user, token) => {
 };
 
 
-export const getUserFullDetails=async(req,res)=>{
-	await prisma.user.findFirst({
-		where:{
-			id:req.body.id
-		}
-	}).then((data)=>{
-		const { password, ...responsedata } = data;
+export const getUserFullDetails = async (req, res) => {
 
-		res.status(200).send({
-			status:200,
-			data:(responsedata),
-			message:'Data retrived sucessfully'
+	const token = req.headers.authorization.split(' ')[1]
+	const secretKey = process.env.SECRET_KEY
+	try {
+		const decodedToken = jwt.verify(token, secretKey)
+		const userId = decodedToken.id
+		await prisma.user.findFirstOrThrow({
+			where: {
+				id: userId
+			}
+		}).then((data) => {
+			const { password, ...responsedata } = data;
+			console.log(responsedata)
+			res.status(200).send({
+				status: 200,
+				data: responsedata,
+				message: 'Data retrived sucessfully'
+			})
 		})
-	})
+	} catch (err) {
+		console.log(err);
+	}
 }
