@@ -10,7 +10,26 @@ export const getEmail = async (req) => {
     return req.body.email;
 };
 
-export const forgetPasswordController=async (req,res)=>{
+export const emailChecker = async (req, res) => {
+    const result = await req.body
+
+    if (await prisma.user.findFirst({
+        where: {
+            email: result.email
+        }
+    })) {
+        console.log(result)
+        res.status(200).send({ "result": result, message: "Email found" })
+    }
+    else {
+        res.send({
+            status: "500",
+            message: "Email not found",
+        });
+    }
+}
+
+export const forgetPasswordController = async (req, res) => {
     console.log("forgetRequest");
     let reqEmail = await getEmail(req);
     try {
@@ -33,7 +52,7 @@ export const forgetPasswordController=async (req,res)=>{
     }
 }
 
-export const codeGenerator=()=>{
+export const codeGenerator = () => {
     const codeArray = [];
     for (let i = 0; i < 5; i++) {
         const radNum = Math.floor(Math.random() * 10);
@@ -54,7 +73,7 @@ export const codeGenerator=()=>{
 
 
 
-export const emailSend=async ()=>{
+export const emailSend = async () => {
     const transporter = createTransport({
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,

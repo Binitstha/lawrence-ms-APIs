@@ -2,7 +2,11 @@ import express from 'express';
 const router=express.Router();
 import { validateCode } from './validator.js';
 import { forgetPasswordController } from './controller.js';
+import { emailChecker } from './controller.js';
 
+router.post('/emailCheck', async(req,res)=>{
+    emailChecker(req,res)
+})
 
 router.post('/forgetPassword', async (req, res) => {
     forgetPasswordController(req,res);
