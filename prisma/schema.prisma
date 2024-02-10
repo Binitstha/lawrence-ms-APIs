@@ -51,7 +51,7 @@ model Token {
 }
 
 model resetPassToken {
-  id    String @id @default(cuid()) @db.Char(25)
+  id    String @id 
   token String
   user  User   @relation(fields: [id], references: [id], onDelete: Cascade)
 }
