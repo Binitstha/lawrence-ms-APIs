@@ -11,7 +11,7 @@ import validateToken from './controller/validateToken.js';
 import auth from './http/routes/auth/auth.js';
 import api from './api.js';
 
-// app.use('/api',validateToken);
+app.use('/api',validateToken);
 app.use('/api',api);
 app.use('/auth',auth);
 
