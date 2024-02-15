@@ -1,4 +1,10 @@
 import express from 'express';
+import rateLimit from 'express-rate-limit';
+
+const limiter=rateLimit({
+    windowMs:1000*60,
+    max:60
+})
 const app=express();
 
 import auth from './http/routes/auth/auth.js';
@@ -12,6 +18,8 @@ import attendance from './http/routes/attendance/routes.js';
 import notice from './http/routes/notices/routes.js';
 import user from './http/routes/user/routes.js';
 
+
+app.use(limiter);
 app.use('/auth',auth);
 app.use('/assignment',assignment);
 app.use('/events',events);
