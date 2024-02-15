@@ -15,26 +15,27 @@ model Notice {
 }
 
 model User {
-  id         String       @id @default(cuid()) @db.Char(25)
-  name       String
-  email      String       @unique
-  password   String
-  contact    String
-  role       String
-  age        String
-  address    String
-  gender     String
-  photo      String?
-  Attendance Attendance[]
-  Student    Student[]
-  Teacher    Teacher[]
-  Token      Token[]
+  id             String           @id @default(cuid()) @db.Char(25)
+  name           String
+  email          String           @unique
+  password       String
+  contact        String
+  role           String
+  age            String
+  address        String
+  gender         String
+  photo          String?
+  Attendance     Attendance[]
+  Student        Student[]
+  Teacher        Teacher[]
+  Token          Token[]
+  resetPassToken resetPassToken[]
 }
 
 model Student {
   student_id  String @id
   semester_id String
-  student     User   @relation(fields: [student_id], references: [id], onDelete:Cascade)
+  student     User   @relation(fields: [student_id], references: [id], onDelete: Cascade)
 }
 
 model Teacher {
@@ -46,6 +47,12 @@ model Teacher {
 model Token {
   id    String @id
   token String @db.Char(255)
+  user  User   @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model resetPassToken {
+  id    String @id 
+  token String
   user  User   @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
