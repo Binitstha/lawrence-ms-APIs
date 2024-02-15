@@ -1,5 +1,6 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
+import validateToken from './controller/validateToken.js';
 
 const limiter=rateLimit({
     windowMs:1000*60,
@@ -17,6 +18,7 @@ import syllabus from './http/routes/syllabus/routes.js';
 import attendance from './http/routes/attendance/routes.js';
 import notice from './http/routes/notices/routes.js';
 import user from './http/routes/user/routes.js';
+
 
 
 app.use(limiter);
