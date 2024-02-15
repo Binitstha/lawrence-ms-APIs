@@ -8,7 +8,7 @@ const limiter=rateLimit({
 })
 const app=express();
 
-import auth from './http/routes/auth/auth.js';
+
 import assignment from './http/routes/assignment/routes.js';
 import events from './http/routes/collegeEvents/routes.js'
 import internalMarks from './http/routes/internalMarks/routes.js';
@@ -22,7 +22,7 @@ import user from './http/routes/user/routes.js';
 
 
 app.use(limiter);
-app.use('/auth',auth);
+
 app.use('/assignment',assignment);
 app.use('/events',events);
 app.use('/internalMarks',internalMarks);
