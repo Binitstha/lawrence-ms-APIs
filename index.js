@@ -10,7 +10,7 @@ app.use(cors());
 import validateToken from './controller/validateToken.js';
 import api from './api.js';
 
-app.use('/api',validateToken);
+// app.use('/api',validateToken);
 app.use('/api',api);
 
 app.use(express.static('./'))
